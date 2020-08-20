@@ -182,7 +182,13 @@ if __name__ == "__main__":
                     else:
                         m = input("Invalid Input! Please input the upper bound of the fizzbuzz game (Integer Value, 'Exit' for quit)): ")
         elif cmd == 'E':
-            # Evaluating the model.
+            # Getting the corresponding weights' dimensions.
+            param = torch.load('./Simple_Neural_Network_with_Pytorch/Fizzbuzz_Game_Implementation/Fizzbuzz.pt')
+            n_0 = param['linear_1.weight'].shape[1]
+            n_1 = param['linear_2.weight'].shape[1]
+            n_2 = param['linear_3.weight'].shape[1]
+            n_3 = param['linear_3.weight'].shape[0]
+            # Generating the model.
             model = fizzbuzz_NN(n_0, n_1, n_2, n_3)                                                                     # Creating the evaluating model.
             try:
                 model.load_state_dict(torch.load('./Simple_Neural_Network_with_Pytorch/Fizzbuzz_Game_Implementation/Fizzbuzz.pt')) # Loading the model.
