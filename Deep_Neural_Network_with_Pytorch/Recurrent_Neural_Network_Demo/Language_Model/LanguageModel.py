@@ -12,7 +12,7 @@
 #                                               vocabulary size
 #                       Output              ->  The predicted word
 #                       Train Target        ->  Predicting the next word according to the
-#                                               current word. 
+#                                               current word
 #============================================================================================#
 
 # Importing the necessary library.
