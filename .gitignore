@@ -1,3 +1,6 @@
 
 *.pt
 Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Word_Embedding/train.txt
+Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/dev.txt
+Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/test.txt
+Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/train.txt
