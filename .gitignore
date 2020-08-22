@@ -11,3 +11,4 @@ Datasets/IMDB/imdb/aclImdb/train/labeledBow.feat
 Datasets/IMDB/imdb/aclImdb/train/unsupBow.feat
 Datasets/IMDB/imdb/aclImdb_v1.tar.gz
 Datasets/IMDB/imdb/aclImdb/README
+Datasets/IMDB/glove.6B.100d/glove.6B.zip
