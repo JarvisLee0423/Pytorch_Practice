@@ -157,6 +157,8 @@ class LanguageModelNN(nn.Module):
                 print("Model Saved")
             # Converting the model mode.
             model.train()
+            # Storing the evaluation accuracy.
+            evalAccs.append(evalAcc)
             # Printing the training information.
             print("The epoch " + str(epoch + 1) + " training: Loss = " + str(np.sum(trainLoss) / len(trainLoss)) + " || Acc = " + str(np.sum(trainAcc) / len(trainAcc)))
             print("The epoch " + str(epoch + 1) + " evaluation: Loss = " + str(evalLoss) + " || Acc = " + str(evalAcc))
