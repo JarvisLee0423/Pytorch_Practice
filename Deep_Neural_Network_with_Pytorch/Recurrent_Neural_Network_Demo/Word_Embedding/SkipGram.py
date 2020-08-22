@@ -9,12 +9,12 @@
 #                                               for each center word
 #                                           ->  Randomly selected negative words 
 #                                               for each pair of center word and positive word
-#                       Embedding Layer     ->  Convert vocabulary size input into embedding
-#                                               size
+#                       Embedding Layer     ->  Converting vocabulary size input into 
+#                                               embedding size
 #                       Output              ->  Sigmoid value to indicate whether the input 
 #                                               pair of words is positive pair(1) or negative
 #                                               pair(0)
-#                       Train Target        ->  Get the weight of the embedding layer
+#                       Train Target        ->  Getting the weight of the embedding layer
 #============================================================================================#
 
 # Importing the necessary libraries.
