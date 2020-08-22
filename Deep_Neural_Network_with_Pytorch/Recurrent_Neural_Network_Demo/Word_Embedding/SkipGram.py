@@ -13,8 +13,8 @@
 #                                               size
 #                       Output              ->  Sigmoid value to indicate whether the input 
 #                                               pair of words is positive pair(1) or negative
-#                                               pair(0).
-#                       Train Target        ->  Get the weight of the embedding layer. 
+#                                               pair(0)
+#                       Train Target        ->  Get the weight of the embedding layer
 #============================================================================================#
 
 # Importing the necessary libraries.
