@@ -139,8 +139,8 @@ class SkipGramNN(nn.Module):
         return loss.mean()                                                                  
     # Defining the training method.
     @staticmethod
-    def trainer(model, optimizer, trainSet, epoch = epoch, vocabularySize = vocabularySize, embeddingSize = embeddingSize):
-        # Indicate whether the model is correct.
+    def trainer(model, optimizer, trainSet, epoch = epoch):
+        # Indicating whether the model is correct.
         assert type(model) != type(SkipGramNN)
         # Sending the model to the correct device.
         model.to(device)
