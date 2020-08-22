@@ -28,7 +28,7 @@ import scipy.spatial
 from collections import Counter
 
 # Fixing the computation device and random seed.
-# Checking whether the computer supporting the 
+# Checking whether the computer supporting the GPU.
 if torch.cuda.is_available:
     # Fixing the GPU.    
     torch.cuda.set_device(0)
