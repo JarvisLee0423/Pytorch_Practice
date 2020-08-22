@@ -4,3 +4,10 @@ Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Word_Embedding/tr
 Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/dev.txt
 Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/test.txt
 Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/train.txt
+Datasets/IMDB/imdb/aclImdb/imdb.vocab
+*.txt
+Datasets/IMDB/imdb/aclImdb/test/labeledBow.feat
+Datasets/IMDB/imdb/aclImdb/train/labeledBow.feat
+Datasets/IMDB/imdb/aclImdb/train/unsupBow.feat
+Datasets/IMDB/imdb/aclImdb_v1.tar.gz
+Datasets/IMDB/imdb/aclImdb/README
