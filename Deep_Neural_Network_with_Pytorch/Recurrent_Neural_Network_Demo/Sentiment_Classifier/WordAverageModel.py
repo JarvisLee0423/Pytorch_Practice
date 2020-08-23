@@ -11,7 +11,7 @@
 #                       Linear Layer        ->  Converting the embedding size input into
 #                                               hidden size
 #                       ReLu                ->  Activation Function
-#                       Linear Layer        ->  Computing the prediction.
+#                       Linear Layer        ->  Computing the prediction
 #============================================================================================#
 
 # Importing the necessary library.
