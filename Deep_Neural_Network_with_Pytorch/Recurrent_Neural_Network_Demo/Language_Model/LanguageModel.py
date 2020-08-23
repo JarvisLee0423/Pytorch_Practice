@@ -208,39 +208,44 @@ if __name__ == "__main__":
     #         LanguageModelNN.trainer(model, optimizer, loss, trainSet, devSet, epoch, batchSize, hiddenSize)
     #         cmd = input("Please input the command ('T' for training, 'E' for evaluation, 'Exit()' for quit): ")
     #     elif cmd == 'E':
-    #         # Loading the model.
-    #         model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/LanguageModel.pt'))
-    #         # Sending the model into the corresponding device.
-    #         model = model.to(device)
-    #         # Testing the model by perplexity.
-    #         testLoss, _ = LanguageModelNN.evaluator(model.eval(), loss, testSet, batchSize, hiddenSize)
-    #         # Printing the perplexity.
-    #         print("The perplexity is: " + str(np.exp(testLoss)))
-    #         # Getting the first word of the sentence.
-    #         word = input("Please input the first word ('Exit()' for quit): ")
-    #         while word != 'Exit()':
-    #             # Getting the first word.
-    #             wordIndex = vocab.stoi.get(str.lower(word), vocab.stoi.get('<unk>'))
-    #             # Initializing the sentence.
-    #             sentence = [vocab.itos[wordIndex]]
-    #             # Generating the input data.
-    #             data = torch.tensor([[wordIndex]]).to(device)
-    #             # Getting the prediction.
-    #             for i in range(10):
-    #                 # Initializing the hidden.
-    #                 hidden = model.initHidden(1, hiddenSize)
-    #                 # Getting the prediction.
-    #                 prediction, _ = model(data, hidden)
-    #                 # Getting the index of the predicted word.
-    #                 index = torch.argmax(prediction, 1)
-    #                 # Storing the predicted word.
-    #                 sentence.append(vocab.itos[index])
-    #                 # Getting another data.
-    #                 data = torch.tensor([[wordIndex]]).to(device)
-    #             # Printing the predicted sentence.
-    #             print("The predicted sentence is: " + " ".join(sentence))
-    #             # Getting another first word of the sentence.
+    #         try:
+    #             # Loading the model.
+    #             model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/LanguageModel.pt'))
+    #             # Sending the model into the corresponding device.
+    #             model = model.to(device)
+    #             # Testing the model by perplexity.
+    #             testLoss, _ = LanguageModelNN.evaluator(model.eval(), loss, testSet, batchSize, hiddenSize)
+    #             # Printing the perplexity.
+    #             print("The perplexity is: " + str(np.exp(testLoss)))
+    #             # Getting the first word of the sentence.
     #             word = input("Please input the first word ('Exit()' for quit): ")
+    #             while word != 'Exit()':
+    #                 # Getting the first word.
+    #                 wordIndex = vocab.stoi.get(str.lower(word), vocab.stoi.get('<unk>'))
+    #                 # Initializing the sentence.
+    #                 sentence = [vocab.itos[wordIndex]]
+    #                 # Generating the input data.
+    #                 data = torch.tensor([[wordIndex]]).to(device)
+    #                 # Getting the prediction.
+    #                 for i in range(10):
+    #                     # Initializing the hidden.
+    #                     hidden = model.initHidden(1, hiddenSize)
+    #                     # Getting the prediction.
+    #                     prediction, _ = model(data, hidden)
+    #                     # Getting the index of the predicted word.
+    #                     index = torch.argmax(prediction, 1)
+    #                     # Storing the predicted word.
+    #                     sentence.append(vocab.itos[index])
+    #                     # Getting another data.
+    #                     data = torch.tensor([[wordIndex]]).to(device)
+    #                 # Printing the predicted sentence.
+    #                 print("The predicted sentence is: " + " ".join(sentence))
+    #                 # Getting another first word of the sentence.
+    #                 word = input("Please input the first word ('Exit()' for quit): ")
+    #         except:
+    #             # Giving the hint.
+    #             print("There are not any trained model, please train one first!!!")
+    #             word = 'T'
     #         cmd = word
     #     else:
     #         cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluation, 'Exit()' for quit): ") 
