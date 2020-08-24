@@ -247,89 +247,89 @@ class HandWrittingNumberModelNN(nn.Module):
     
 # Training the model.
 if __name__ == "__main__":
-    #pass
-    # Generating the training and development sets.
-    trainSet, devSet = dataGenerator.generator()
-    # Outputing the data as image.
-    for _, (data, _) in enumerate(trainSet):
-        # Setting the transform method.
-        transform = transforms.ToPILImage()
-        # Transforming the tensor data into image.
-        for j in range(batchSize):
-            image = transform(data[j])
-            # Plotting the image.
-            plt.imshow(image)
-            # Drawing the image.
-            plt.show()
-            # Getting the cmd.
-            cmd = input("'Exit' for quiting the data displaying: ")
-            # Handling the cmd.
-            if cmd == "Exit":
-                break
-            else:
-                continue
-        # Handling the cmd.
-        if cmd == "Exit":
-            break
-        else:
-            continue
-    # Creating the model.
-    model = HandWrittingNumberModelNN(inChannel, classSize)
-    # Setting the optimizer.
-    optimizer = optim.Adam(model.parameters(), lr = learningRate)
-    # Setting the loss function.
-    loss = nn.CrossEntropyLoss()
-    # Getting the command.
-    cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    # Handling the command.
-    while cmd != 'Exit':
-        if cmd == 'T':
-            # Training the model.
-            HandWrittingNumberModelNN.trainer(model, optimizer, loss, trainSet, devSet, epoches)
-            # Getting the command.
-            input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-        elif cmd == 'E':
-            try:
-                # Loading the model.
-                model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/HandWrittingNumberModel.pt'))
-                # Sending the model into the corresponding device.
-                model = model.to(device)
-                # Converting the model mode.
-                model.eval()
-                # Testing the model.
-                # Getting the root of the testing model.
-                root = './Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/Test_Image/'
-                # Getting the testing data.
-                for filename in os.listdir(root):
-                    # Getting the image.
-                    image = Image.open(os.path.join(root, filename))
-                    # Setting the transformation.
-                    transform = transforms.Compose([transforms.CenterCrop(28), transforms.ToTensor()])
-                    # Getting the testing data. [1, 28, 28] -> [1, 1, 28, 28]
-                    inputData = transform(image.convert("1")).unsqueeze(0)
-                    # Sending the data into the corresponding device.
-                    inputData = inputData.to(device)
-                    # Testing the data.
-                    prediction = model(inputData)
-                    # Getting the predicted label.
-                    prediction = int(torch.argmax(prediction, 1))
-                    # Printing the predicted label.
-                    print("The predicted label of " + filename + " is: " + str(prediction))
-                    # Drawing the testing image.
-                    plt.imshow(image)
-                    plt.show()
-                    # Getting the command.
-                    cmd = input("Input 'Exit' to stop the testing: ")
-                    # Handling the command.
-                    if cmd == 'Exit':
-                        break
-                    else:
-                        continue
-                # Giving the hint.
-                print("Testing completed!!!")
-            except:
-                # Giving the hint.
-                print("There are not any trained model, please training one first!!!")
-                cmd = 'T'
-        else:
-            cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    pass
+    # # Generating the training and development sets.
+    # trainSet, devSet = dataGenerator.generator()
+    # # Outputing the data as image.
+    # for _, (data, _) in enumerate(trainSet):
+    #     # Setting the transform method.
+    #     transform = transforms.ToPILImage()
+    #     # Transforming the tensor data into image.
+    #     for j in range(batchSize):
+    #         image = transform(data[j])
+    #         # Plotting the image.
+    #         plt.imshow(image)
+    #         # Drawing the image.
+    #         plt.show()
+    #         # Getting the cmd.
+    #         cmd = input("'Exit' for quiting the data displaying: ")
+    #         # Handling the cmd.
+    #         if cmd == "Exit":
+    #             break
+    #         else:
+    #             continue
+    #     # Handling the cmd.
+    #     if cmd == "Exit":
+    #         break
+    #     else:
+    #         continue
+    # # Creating the model.
+    # model = HandWrittingNumberModelNN(inChannel, classSize)
+    # # Setting the optimizer.
+    # optimizer = optim.Adam(model.parameters(), lr = learningRate)
+    # # Setting the loss function.
+    # loss = nn.CrossEntropyLoss()
+    # # Getting the command.
+    # cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    # # Handling the command.
+    # while cmd != 'Exit':
+    #     if cmd == 'T':
+    #         # Training the model.
+    #         HandWrittingNumberModelNN.trainer(model, optimizer, loss, trainSet, devSet, epoches)
+    #         # Getting the command.
+    #         input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    #     elif cmd == 'E':
+    #         try:
+    #             # Loading the model.
+    #             model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/HandWrittingNumberModel.pt'))
+    #             # Sending the model into the corresponding device.
+    #             model = model.to(device)
+    #             # Converting the model mode.
+    #             model.eval()
+    #             # Testing the model.
+    #             # Getting the root of the testing model.
+    #             root = './Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/Test_Image/'
+    #             # Getting the testing data.
+    #             for filename in os.listdir(root):
+    #                 # Getting the image.
+    #                 image = Image.open(os.path.join(root, filename))
+    #                 # Setting the transformation.
+    #                 transform = transforms.Compose([transforms.CenterCrop(28), transforms.ToTensor()])
+    #                 # Getting the testing data. [1, 28, 28] -> [1, 1, 28, 28]
+    #                 inputData = transform(image.convert("1")).unsqueeze(0)
+    #                 # Sending the data into the corresponding device.
+    #                 inputData = inputData.to(device)
+    #                 # Testing the data.
+    #                 prediction = model(inputData)
+    #                 # Getting the predicted label.
+    #                 prediction = int(torch.argmax(prediction, 1))
+    #                 # Printing the predicted label.
+    #                 print("The predicted label of " + filename + " is: " + str(prediction))
+    #                 # Drawing the testing image.
+    #                 plt.imshow(image)
+    #                 plt.show()
+    #                 # Getting the command.
+    #                 cmd = input("Input 'Exit' to stop the testing: ")
+    #                 # Handling the command.
+    #                 if cmd == 'Exit':
+    #                     break
+    #                 else:
+    #                     continue
+    #             # Giving the hint.
+    #             print("Testing completed!!!")
+    #         except:
+    #             # Giving the hint.
+    #             print("There are not any trained model, please training one first!!!")
+    #             cmd = 'T'
+    #     else:
+    #         cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
