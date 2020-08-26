@@ -267,8 +267,17 @@ if __name__ == "__main__":
                             print("Prediction Fail!!!")
                         # Getting the transformation methods.
                         transform = transforms.Compose([transforms.ToPILImage()])
+                        # Getting the image data.
+                        image = data[j]
+                        # Getting the mean and std.
+                        mean = [0.485, 0.456, 0.406]
+                        std = [0.229, 0.224, 0.225]
+                        # Recovering the image.
+                        image[0] = image[0] * std[0] + mean[0]
+                        image[1] = image[1] * std[1] + mean[1]
+                        image[2] = image[2] * std[2] + mean[2]
                         # Getting the image.
-                        image = transform(data[j])
+                        image = transform(image)
                         # Showing the image.
                         plt.figure(labels[predictedLabel.item()])
                         plt.imshow(image)
