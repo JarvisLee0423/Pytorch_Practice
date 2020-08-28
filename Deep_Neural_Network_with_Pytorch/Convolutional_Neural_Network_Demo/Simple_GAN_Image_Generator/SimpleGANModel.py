@@ -47,12 +47,12 @@ if torch.cuda.is_available():
     # Fixing the computer device.
     torch.cuda.set_device(0)
     # Fixing the random size.
-    torch.cuda.manual_seed(1111)
+    #torch.cuda.manual_seed(1)
     # Setting the computer device.
     device = 'cuda'
 else:
     # Fixing the random seed.
-    torch.manual_seed(1111)
+    #torch.manual_seed(1)
     # Setting the computer device.
     device = 'cpu'
 
