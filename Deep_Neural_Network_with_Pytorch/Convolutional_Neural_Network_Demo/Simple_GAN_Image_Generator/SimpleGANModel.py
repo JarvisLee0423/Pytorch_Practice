@@ -265,19 +265,16 @@ if __name__ == "__main__":
     #             model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Simple_GAN_Image_Generator/SimpleGANModel.pt'))
     #             # Sending the model into the corresponding device.
     #             model = model.to(device).eval()
-    #             # Creating the latent space.
-    #             for _, (data, _) in enumerate(trainSet):
-    #                 # Initializting the latent space.
-    #                 latentSpace = torch.rand_like(data).to(device)
-    #                 break
-    #             # Getting the fake image.
-    #             fakeImage = model(latentSpace).reshape((batchSize, 1, 28, 28)).to('cpu')
     #             # Plotting the image.
     #             for i in range(batchSize):
+    #                 # Creating the latent space.
+    #                 latentSpace = torch.randn((1, 1, 28, 28)).to(device)
+    #                 # Getting the fake image.
+    #                 fakeImage = model(latentSpace).reshape((1, 1, 28, 28)).to('cpu')
     #                 # Setting the transformation.
     #                 transform = transforms.ToPILImage()
     #                 # Getting the image.
-    #                 image = transform(fakeImage[i])
+    #                 image = transform(fakeImage[0])
     #                 # Plotting the image.
     #                 plt.imshow(image, cmap = plt.cm.gray)
     #                 plt.show()
