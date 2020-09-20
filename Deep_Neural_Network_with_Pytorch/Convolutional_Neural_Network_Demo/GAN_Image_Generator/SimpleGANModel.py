@@ -1,6 +1,6 @@
 #============================================================================================#
 #   Copyright:          JarvisLee                       
-#   Date:               2020/08/28
+#   Date:               2020/09/20
 #   Project Name:       SimpleGANModel.py
 #   Description:        Build a simple GAN model to generating the image in MNIST datastes.
 #   Model Description:  Input               ->  MNIST Images and Fake Images
