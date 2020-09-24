@@ -237,7 +237,7 @@ if __name__ == "__main__":
     #                     # Storing the predicted word.
     #                     sentence.append(vocab.itos[index])
     #                     # Getting another data.
-    #                     data = torch.tensor([[wordIndex]]).to(device)
+    #                     data = torch.tensor([[index]]).to(device)
     #                 # Printing the predicted sentence.
     #                 print("The predicted sentence is: " + " ".join(sentence))
     #                 # Getting another first word of the sentence.
