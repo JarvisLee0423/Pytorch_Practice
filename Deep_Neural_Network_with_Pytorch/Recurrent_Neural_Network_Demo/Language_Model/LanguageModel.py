@@ -189,63 +189,63 @@ class LanguageModelNN(nn.Module):
         # Returning the loss and accuracy.
         return np.sum(evalLoss) / len(evalLoss), np.sum(evalAcc) / len(evalAcc)
 
-# # Training the model.
-# if __name__ == "__main__":
-#     pass
-#     # Generating the data.
-#     vocab, trainSet, devSet, testSet = dataGenerator.generator(vocabularySize, batchSize)
-#     # Creating the model.
-#     model = LanguageModelNN(vocabularySize, embeddingSize, hiddenSize)
-#     # Creating the loss function.
-#     loss = nn.CrossEntropyLoss()
-#     # Creating the optimizer.
-#     optimizer = optim.Adam(model.parameters(), lr = learningRate)
-#     cmd = input("Please input the command ('T' for training, 'E' for evaluation, 'Exit()' for quit): ")
-#     # Handling the command.
-#     while cmd != 'Exit()':
-#         if cmd == 'T':
-#             # Training the model.
-#             LanguageModelNN.trainer(model, optimizer, loss, trainSet, devSet, epoch, batchSize, hiddenSize)
-#             cmd = input("Please input the command ('T' for training, 'E' for evaluation, 'Exit()' for quit): ")
-#         elif cmd == 'E':
-#             try:
-#                 # Loading the model.
-#                 model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/LanguageModel.pt'))
-#                 # Sending the model into the corresponding device.
-#                 model = model.to(device)
-#                 # Testing the model by perplexity.
-#                 testLoss, _ = LanguageModelNN.evaluator(model.eval(), loss, testSet, batchSize, hiddenSize)
-#                 # Printing the perplexity.
-#                 print("The perplexity is: " + str(np.exp(testLoss)))
-#                 # Getting the first word of the sentence.
-#                 word = input("Please input the first word ('Exit()' for quit): ")
-#                 while word != 'Exit()':
-#                     # Getting the first word.
-#                     wordIndex = vocab.stoi.get(str.lower(word), vocab.stoi.get('<unk>'))
-#                     # Initializing the sentence.
-#                     sentence = [vocab.itos[wordIndex]]
-#                     # Generating the input data.
-#                     data = torch.tensor([[wordIndex]]).to(device)
-#                     # Initializing the hidden.
-#                     hidden = model.splitHiddenHistory(model.initHidden(1, hiddenSize, False))
-#                     # Getting the prediction.
-#                     for i in range(100):
-#                         # Getting the prediction.
-#                         prediction, hidden = model(data, hidden)
-#                         # Getting the index of the predicted word.
-#                         index = torch.multinomial(prediction.squeeze().exp().cpu(), 1)[0]
-#                         # Storing the predicted word.
-#                         sentence.append(vocab.itos[index])
-#                         # Getting another data.
-#                         data.fill_(index)
-#                     # Printing the predicted sentence.
-#                     print("The predicted sentence is: " + " ".join(sentence))
-#                     # Getting another first word of the sentence.
-#                     word = input("Please input the first word ('Exit()' for quit): ")
-#             except:
-#                 # Giving the hint.
-#                 print("There are not any trained model, please train one first!!!")
-#                 word = 'T'
-#             cmd = word
-#         else:
-#             cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluation, 'Exit()' for quit): ") 
+# Training the model.
+if __name__ == "__main__":
+    pass
+    # # Generating the data.
+    # vocab, trainSet, devSet, testSet = dataGenerator.generator(vocabularySize, batchSize)
+    # # Creating the model.
+    # model = LanguageModelNN(vocabularySize, embeddingSize, hiddenSize)
+    # # Creating the loss function.
+    # loss = nn.CrossEntropyLoss()
+    # # Creating the optimizer.
+    # optimizer = optim.Adam(model.parameters(), lr = learningRate)
+    # cmd = input("Please input the command ('T' for training, 'E' for evaluation, 'Exit()' for quit): ")
+    # # Handling the command.
+    # while cmd != 'Exit()':
+    #     if cmd == 'T':
+    #         # Training the model.
+    #         LanguageModelNN.trainer(model, optimizer, loss, trainSet, devSet, epoch, batchSize, hiddenSize)
+    #         cmd = input("Please input the command ('T' for training, 'E' for evaluation, 'Exit()' for quit): ")
+    #     elif cmd == 'E':
+    #         try:
+    #             # Loading the model.
+    #             model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Language_Model/LanguageModel.pt'))
+    #             # Sending the model into the corresponding device.
+    #             model = model.to(device)
+    #             # Testing the model by perplexity.
+    #             testLoss, _ = LanguageModelNN.evaluator(model.eval(), loss, testSet, batchSize, hiddenSize)
+    #             # Printing the perplexity.
+    #             print("The perplexity is: " + str(np.exp(testLoss)))
+    #             # Getting the first word of the sentence.
+    #             word = input("Please input the first word ('Exit()' for quit): ")
+    #             while word != 'Exit()':
+    #                 # Getting the first word.
+    #                 wordIndex = vocab.stoi.get(str.lower(word), vocab.stoi.get('<unk>'))
+    #                 # Initializing the sentence.
+    #                 sentence = [vocab.itos[wordIndex]]
+    #                 # Generating the input data.
+    #                 data = torch.tensor([[wordIndex]]).to(device)
+    #                 # Initializing the hidden.
+    #                 hidden = model.splitHiddenHistory(model.initHidden(1, hiddenSize, False))
+    #                 # Getting the prediction.
+    #                 for i in range(100):
+    #                     # Getting the prediction.
+    #                     prediction, hidden = model(data, hidden)
+    #                     # Getting the index of the predicted word.
+    #                     index = torch.multinomial(prediction.squeeze().exp().cpu(), 1)[0]
+    #                     # Storing the predicted word.
+    #                     sentence.append(vocab.itos[index])
+    #                     # Getting another data.
+    #                     data.fill_(index)
+    #                 # Printing the predicted sentence.
+    #                 print("The predicted sentence is: " + " ".join(sentence))
+    #                 # Getting another first word of the sentence.
+    #                 word = input("Please input the first word ('Exit()' for quit): ")
+    #         except:
+    #             # Giving the hint.
+    #             print("There are not any trained model, please train one first!!!")
+    #             word = 'T'
+    #         cmd = word
+    #     else:
+    #         cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluation, 'Exit()' for quit): ") 
