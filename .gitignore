@@ -19,3 +19,10 @@ Datasets/MNIST/raw/train-images-idx3-ubyte
 Datasets/MNIST/raw/train-labels-idx1-ubyte
 *.jpg
 *.gif
+Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/Test_Image/0.png
+Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/Test_Image/1.png
+Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/Test_Image/10.png
+Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/Test_Image/2.png
+*.png
+*.png
+Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/Hand_Writting_Number_Classifier/Test_Image/10.png
