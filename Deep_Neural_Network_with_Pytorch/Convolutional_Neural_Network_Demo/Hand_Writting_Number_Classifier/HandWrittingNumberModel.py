@@ -258,7 +258,7 @@ if __name__ == "__main__":
     #     for j in range(batchSize):
     #         image = transform(data[j])
     #         # Plotting the image.
-    #         plt.imshow(image)
+    #         plt.imshow(image, cmap = plt.cm.gray)
     #         # Drawing the image.
     #         plt.show()
     #         # Getting the cmd.
@@ -304,7 +304,7 @@ if __name__ == "__main__":
     #                 # Getting the image.
     #                 image = Image.open(os.path.join(root, filename))
     #                 # Setting the transformation.
-    #                 transform = transforms.Compose([transforms.CenterCrop(28), transforms.ToTensor()])
+    #                 transform = transforms.Compose([transforms.Resize((28, 28)), transforms.ToTensor()])
     #                 # Getting the testing data. [1, 28, 28] -> [1, 1, 28, 28]
     #                 inputData = transform(image.convert("1")).unsqueeze(0)
     #                 # Sending the data into the corresponding device.
@@ -315,7 +315,7 @@ if __name__ == "__main__":
     #                 prediction = int(torch.argmax(prediction, 1))
     #                 # Printing the predicted label.
     #                 print("The predicted label of " + filename + " is: " + str(prediction))
-    #                 # Drawing the testing image.
+    #                 #Drawing the testing image.
     #                 plt.imshow(image)
     #                 plt.show()
     #                 # Getting the command.
