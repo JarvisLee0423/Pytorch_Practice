@@ -18,4 +18,4 @@
 
  Library Description:
 
- This project only required three extra library, one is jieba, another one is nltk and the last one is torchtext.
+ This project only required three extra libraries, one is jieba, another one is nltk and the last one is torchtext.
