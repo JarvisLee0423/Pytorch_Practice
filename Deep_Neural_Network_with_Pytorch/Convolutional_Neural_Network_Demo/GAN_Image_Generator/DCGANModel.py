@@ -34,17 +34,16 @@
 #                                           ->  BatchNorm2d         ->  InChannel:  128
 #                                           ->  ReLu                ->  InPlace:    True
 #                                           ->  ConvTranspose2d     ->  InChannel:  128
-#                                                                   ->  OutChannel: 1
-#                                                                   ->  Kernel:     (5, 5)
-#                                                                   ->  Stride:     1
-#                                                                   ->  Padding:    4
-#                                           ->  BatchNorm2d         ->  InChannel:  1
+#                                                                   ->  OutChannel: 3
+#                                                                   ->  Kernel:     (4, 4)
+#                                                                   ->  Stride:     2
+#                                                                   ->  Padding:    1
 #                                           ->  Tanh
-#                       Discriminator       ->  Conv2d              ->  InChannel:  1
+#                       Discriminator       ->  Conv2d              ->  InChannel:  3
 #                                                                   ->  OutChannel: 128
-#                                                                   ->  Kernel:     (5, 5)
-#                                                                   ->  Stride:     1
-#                                                                   ->  Padding:    4
+#                                                                   ->  Kernel:     (4, 4)
+#                                                                   ->  Stride:     2
+#                                                                   ->  Padding:    1
 #                                           ->  BatchNorm2d         ->  InChannel:  128
 #                                           ->  LeakyReLu           ->  Rate:       0.2
 #                                                                   ->  InPlace:    True
@@ -73,19 +72,14 @@
 #                                           ->  LeakyReLu           ->  Rate:       0.2
 #                                                                   ->  InPlace:    True
 #                                           ->  Conv2d              ->  InChannel:  1024
-#                                                                   ->  OutChannel: 100
+#                                                                   ->  OutChannel: 1
 #                                                                   ->  Kernel:     (4, 4)
 #                                                                   ->  Stride:     1
 #                                                                   ->  Padding:    0
-#                                           ->  BatchNorm2d         ->  InChannel:  100
-#                                           ->  LeakyReLu           ->  Rate:       0.2
-#                                                                   ->  InPlace:    True
-#                                           ->  Linear  (100, 1)
 #                                           ->  Sigmoid
 #============================================================================================#
 
 # Importing the necessary library.
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
@@ -114,48 +108,42 @@ else:
 learningRateG = 2e-4
 learningRateD = 2e-4
 # The value of the batch size.
-batchSize = 32
+batchSize = 64
 # The value of the latent size.
 latentSize = 100
 # The value of the epoch.
-epoches = 30
+epoches = 5
 
 # Creating the dataloader.
 class dataLoader():
     # Creating the method to get the train data.
     @staticmethod
-    def MNIST(batchSize):
-        # Checking whether downloading the data.
-        if os.path.exists('./Datasets/MNIST/'):
-            download = False
-        else:
-            download = True
-        # Setting the transform.
-        transform = transforms.Compose(
-            [
-                transforms.ToTensor(),
-                transforms.Normalize(
-                    mean = (0.5,),
-                    std = (0.5,)
-                )
-            ]
+    def CELEBA(batchSize):
+        # Setting the data root.
+        root = './Datasets/CELEBA/'
+        # Setting the transformation method.
+        transform = transforms.Compose([
+            transforms.Resize((64, 64)),
+            transforms.ToTensor(),
+            transforms.Normalize(
+                mean = (0.5, 0.5, 0.5),
+                std = (0.5, 0.5, 0.5)
+            )
+        ])
+        # Getting the data.
+        trainData = datasets.ImageFolder(
+            root = root,
+            transform = transform
         )
-        # Setting the training dataset.
-        trainSet = datasets.MNIST(
-            root = './Datasets',
-            train = True,
-            transform = transform,
-            download = download
-        )
-        # Getting the training data.
-        trainData = DataLoader(
-            trainSet,
+        # Getting the training set.
+        trainSet = DataLoader(
+            trainData,
             batch_size = batchSize,
             shuffle = True,
             drop_last = True
         )
-        # Returning the data.
-        return trainData
+        # Returning the train set.
+        return trainSet
 
 # Creating the model for generator.
 class Generator(nn.Module):
@@ -172,7 +160,7 @@ class Generator(nn.Module):
         self.bn3 = nn.BatchNorm2d(256)
         self.convTrans2d4 = nn.ConvTranspose2d(256, 128, 4, 2, 1)
         self.bn4 = nn.BatchNorm2d(128)
-        self.convTrans2d5 = nn.ConvTranspose2d(128, 1, 5, 1, 4)
+        self.convTrans2d5 = nn.ConvTranspose2d(128, 3, 4, 2, 1)
     # Setting the method to initializing the weight.
     @staticmethod
     def weightInit(model):
@@ -203,7 +191,7 @@ class Generator(nn.Module):
         x = self.convTrans2d4(x)
         x = self.bn4(x)
         x = F.relu(x, inplace = True)
-        # [batchSize, 128, 32, 32] -> [batchSize, 1, 28, 28]
+        # [batchSize, 128, 32, 32] -> [batchSize, 3, 64, 64]
         x = self.convTrans2d5(x)
         # Returning the data.
         return torch.tanh(x)
@@ -215,7 +203,7 @@ class Discrimitor(nn.Module):
         # Inheritting the super constructor.
         super(Discrimitor, self).__init__()
         # Setting the model.
-        self.conv2d1 = nn.Conv2d(1, 128, 5, 1, 4)
+        self.conv2d1 = nn.Conv2d(3, 128, 4, 2, 1)
         self.bn1 = nn.BatchNorm2d(128)
         self.conv2d2 = nn.Conv2d(128, 256, 4, 2, 1)
         self.bn2 = nn.BatchNorm2d(256)
@@ -223,12 +211,10 @@ class Discrimitor(nn.Module):
         self.bn3 = nn.BatchNorm2d(512)
         self.conv2d4 = nn.Conv2d(512, 1024, 4, 2, 1)
         self.bn4 = nn.BatchNorm2d(1024)
-        self.conv2d5 = nn.Conv2d(1024, 100, 4, 1, 0)
-        self.bn5 = nn.BatchNorm2d(100)
-        self.linear = nn.Linear(100, 1)
+        self.conv2d5 = nn.Conv2d(1024, 1, 4, 1, 0)
     # Doing the forward propagation.
     def forward(self, x):
-        # [batchSize, 1, 28, 28] -> [batchSize, 128, 32, 32]
+        # [batchSize, 3, 64, 64] -> [batchSize, 128, 32, 32]
         x = self.conv2d1(x)
         x = self.bn1(x)
         x = F.leaky_relu(x, 0.2, inplace = True)
@@ -244,14 +230,10 @@ class Discrimitor(nn.Module):
         x = self.conv2d4(x)
         x = self.bn4(x)
         x = F.leaky_relu(x, 0.2, inplace = True)
-        # [batchSize, 1024, 4, 4] -> [batchSize, 100, 1, 1]
+        # [batchSize, 1024, 4, 4] -> [batchSize, 1, 1, 1]
         x = self.conv2d5(x)
-        x = self.bn5(x)
-        x = F.leaky_relu(x, 0.2, inplace = True)
-        # [batchSize, 100, 1, 1] -> [batchSize, 100]
-        x = x.reshape((batchSize, 100))
-        # [bachSize, 100] -> [batchSize, 1]
-        x = self.linear(x)
+        # [batchSize, 1, 1, 1] -> [batchSize, 1]
+        x = x.squeeze().unsqueeze(1)
         # Returning the data.
         return torch.sigmoid(x)
 
@@ -271,8 +253,8 @@ class DCGANModelNN():
         # Setting the loss function.
         loss = nn.BCELoss()
         # Setting the optimizers.
-        optimG = optim.Adam(G.parameters(), lr = learningRateG, betas = [0.5, 0.999])
-        optimD = optim.Adam(D.parameters(), lr = learningRateD, betas = [0.5, 0.999])
+        optimG = optim.Adam(G.parameters(), lr = learningRateG, betas = (0.5, 0.999))
+        optimD = optim.Adam(D.parameters(), lr = learningRateD, betas = (0.5, 0.999))
         # Setting the truth label and fake label.
         trueLabel = torch.ones(batchSize, 1).to(device)
         fakeLabel = torch.zeros(batchSize, 1).to(device)
@@ -329,19 +311,25 @@ class DCGANModelNN():
 
 if __name__ == "__main__":
     pass
-    # # Getting the data.
-    # trainData = dataLoader.MNIST(batchSize)
+    # #Getting the data.
+    # trainData = dataLoader.CELEBA(batchSize)
     # # Outputing the data.
     # for _, (images, _) in enumerate(trainData):
     #     # Setting the transformation.
-    #     transform = transforms.ToPILImage()
+    #     transform = transforms.Compose([
+    #         transforms.Normalize(
+    #             mean = (-1, -1, -1),
+    #             std = (2, 2, 2)
+    #         ),
+    #         transforms.ToPILImage()
+    #     ])
     #     # Getting the image.
     #     for i in range(len(images)):
     #         # Transforming the image.
     #         image = transform(images[i])
     #         # Drawing the image.
-    #         plt.title("Real MNIST Image")
-    #         plt.imshow(image, cmap = plt.cm.gray)
+    #         plt.title("Real Face Image")
+    #         plt.imshow(image)
     #         plt.show()
     #         # Checking whether continuing to showing the image.
     #         cmd = input("'Exit' for quit: ")
@@ -350,7 +338,7 @@ if __name__ == "__main__":
     #     # Checking whether continuing to showing the image.
     #     if cmd == 'Exit':
     #         break
-    # # Getting the command.
+    # #Getting the command.
     # cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
     # # Handling the command.
     # while cmd != 'Exit':
@@ -382,12 +370,18 @@ if __name__ == "__main__":
     #                     try:
     #                         i = eval(i)
     #                         # Setting the transformation.
-    #                         transform = transforms.ToPILImage()
+    #                         transform = transforms.Compose([
+    #                             transforms.Normalize(
+    #                                 mean = (-1, -1, -1),
+    #                                 std = (2, 2, 2)
+    #                             ),
+    #                             transforms.ToPILImage()
+    #                         ])
     #                         # Getting the image.
     #                         image = transform(fakeImages[i-1])
     #                         # Plotting the image.
-    #                         plt.title("Generated MNIST Image")
-    #                         plt.imshow(image, cmap = plt.cm.gray)
+    #                         plt.title("Generated Face Image")
+    #                         plt.imshow(image)
     #                         plt.show()
     #                     except:
     #                         print("Please input a valid number!!!")
