@@ -5,7 +5,7 @@
 
  In this project, the necessary datasets are MNIST, IMDB and CELEBA.
 
- The MNIST and IMDB could directly downloaded from the torchvision and torchtext.
+ The MNIST and IMDB could be directly downloaded from the torchvision and torchtext.
 
  The CELEBA could be downloaded from the Google official: https://drive.google.com/drive/folders/0B7EVK8r0v71pbWNEUjJKdDQ3dGc
 
