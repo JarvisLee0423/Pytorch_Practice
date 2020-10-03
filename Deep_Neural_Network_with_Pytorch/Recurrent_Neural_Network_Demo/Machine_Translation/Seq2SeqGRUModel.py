@@ -412,96 +412,95 @@ class Seq2SeqGRUModelNN(nn.Module):
 
 # Setting the main function.
 if __name__ == "__main__":
-    pass
-    # # Getting the training data.
-    # enItos, enStoi, cnItos, cnStoi, enTrainSet, cnTrainSet, enTrainLen, cnTrainLen = trainComponentsGenerator.trainComponentsGenerator(batchSize, vocabSize, shuffle = True, train = True)
-    # # Getting the development data.
-    # _, _, _, _, enDevSet, cnDevSet, enDevLen, cnDevLen = trainComponentsGenerator.trainComponentsGenerator(batchSize, vocabSize, shuffle = False, train = False)
-    # # Checking the training data.
-    # for i in range(len(enTrainSet)):
-    #     for k in range(enTrainSet[i].shape[0]):
-    #         print(" ".join([enItos[index] for index in enTrainSet[i][k]]))
-    #         print(" ".join([cnItos[index] for index in cnTrainSet[i][k]]))
-    #         # Getting the command.
-    #         cmd = input("'Exit' for quit looking the training data: ")
-    #         # Handling the command.
-    #         if cmd == 'Exit':
-    #             break
-    #     if cmd == 'Exit':
-    #         break
-    # # Checking the development data.
-    # for i in range(len(enDevSet)):
-    #     for k in range(enDevSet[i].shape[0]):
-    #         print(" ".join([enItos[index] for index in enDevSet[i][k]]))
-    #         print(" ".join([cnItos[index] for index in cnDevSet[i][k]]))
-    #         # Getting the command.
-    #         cmd = input("'Exit' for quit looking the development data: ")
-    #         # Handling the command.
-    #         if cmd == 'Exit':
-    #             break
-    #     if cmd == 'Exit':
-    #         break
-    # # Getting the input command.
-    # cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    # # Handling the command.
-    # while cmd != 'Exit':
-    #     if cmd == 'T':
-    #         # Training the model.
-    #         Seq2SeqGRUModelNN.trainer(enTrainSet, cnTrainSet, enTrainLen, cnTrainLen, enDevSet, cnDevSet, enDevLen, cnDevLen, len(enItos), len(cnItos), hiddenSize, batchSize, learningRate, epoches)
-    #         # Getting the command.
-    #         cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    #     elif cmd == 'E':
-    #         # Checking whether there is the model or not.
-    #         try:
-    #             # Creating the model.
-    #             encoder = Encoder(len(enItos), hiddenSize)
-    #             decoder = Decoder(len(cnItos), hiddenSize)
-    #             # Loading the model.
-    #             encoder.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Machine_Translation/Seq2SeqEncoder.pt'))
-    #             decoder.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Machine_Translation/Seq2SeqDecoder.pt'))
-    #             # Making the model into evaluating state.
-    #             encoder = encoder.to(device).eval()
-    #             decoder = decoder.to(device).eval()
-    #             # Getting the input English sentence.
-    #             sentence = input("Please input the English sentence ('Exit' for quit): ")
-    #             # Handling the sentence.
-    #             while sentence != 'Exit':
-    #                 # Setting the list to storing the translation.
-    #                 translation = []
-    #                 # Initializing the index.
-    #                 index = 2
-    #                 # Spliting the sentence.
-    #                 enData = ['<bos>'] + nltk.word_tokenize(sentence) + ['<eos>']
-    #                 # Getting the length of the input English data.
-    #                 length = [len(enData)]
-    #                 # Getting the evaluating data.
-    #                 enData = torch.LongTensor(np.array([enStoi.get(word, enStoi.get('<unk>')) for word in enData]).astype('int64')).unsqueeze(0).to(device)
-    #                 # Getting the context hidden.
-    #                 hidden = encoder(enData, length)
-    #                 # Getting the first trainslated word.
-    #                 prediction = torch.LongTensor(np.array([cnStoi['<bos>']]).astype('int64')).unsqueeze(0).to(device)
-    #                 # Getting the trainslation.
-    #                 while cnItos[index] != '<eos>':
-    #                     # Getting the prediction.
-    #                     prediction, hidden = decoder(prediction, [1], hidden)
-    #                     # Getting the index.
-    #                     index = torch.argmax(prediction, 1)
-    #                     # Getting the word.
-    #                     if cnItos[index] != '<eos>':
-    #                         translation.append(cnItos[index])
-    #                     # Reseting the prediction.
-    #                     prediction = torch.LongTensor(np.array([index]).astype('int64')).unsqueeze(0).to(device)
-    #                 # Printing the tanslation.
-    #                 print("The Chinese translation is: " + " ".join(translation))
-    #                 # Getting the input English sentence.
-    #                 sentence = input("Please input the English sentence ('Exit' for quit): ")
-    #             # Quiting the system.
-    #             cmd = sentence
-    #         except:
-    #             # Giving the hint.
-    #             print("There is no model! Please training one first!")
-    #             # Training the model.
-    #             cmd = 'T'
-    #     else:
-    #         # Giving the hint.
-    #         cmd = input("Invalid command! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    # Getting the training data.
+    enItos, enStoi, cnItos, cnStoi, enTrainSet, cnTrainSet, enTrainLen, cnTrainLen = trainComponentsGenerator.trainComponentsGenerator(batchSize, vocabSize, shuffle = True, train = True)
+    # Getting the development data.
+    _, _, _, _, enDevSet, cnDevSet, enDevLen, cnDevLen = trainComponentsGenerator.trainComponentsGenerator(batchSize, vocabSize, shuffle = False, train = False)
+    # Checking the training data.
+    for i in range(len(enTrainSet)):
+        for k in range(enTrainSet[i].shape[0]):
+            print(" ".join([enItos[index] for index in enTrainSet[i][k]]))
+            print(" ".join([cnItos[index] for index in cnTrainSet[i][k]]))
+            # Getting the command.
+            cmd = input("'Exit' for quit looking the training data: ")
+            # Handling the command.
+            if cmd == 'Exit':
+                break
+        if cmd == 'Exit':
+            break
+    # Checking the development data.
+    for i in range(len(enDevSet)):
+        for k in range(enDevSet[i].shape[0]):
+            print(" ".join([enItos[index] for index in enDevSet[i][k]]))
+            print(" ".join([cnItos[index] for index in cnDevSet[i][k]]))
+            # Getting the command.
+            cmd = input("'Exit' for quit looking the development data: ")
+            # Handling the command.
+            if cmd == 'Exit':
+                break
+        if cmd == 'Exit':
+            break
+    # Getting the input command.
+    cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    # Handling the command.
+    while cmd != 'Exit':
+        if cmd == 'T':
+            # Training the model.
+            Seq2SeqGRUModelNN.trainer(enTrainSet, cnTrainSet, enTrainLen, cnTrainLen, enDevSet, cnDevSet, enDevLen, cnDevLen, len(enItos), len(cnItos), hiddenSize, batchSize, learningRate, epoches)
+            # Getting the command.
+            cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+        elif cmd == 'E':
+            # Checking whether there is the model or not.
+            try:
+                # Creating the model.
+                encoder = Encoder(len(enItos), hiddenSize)
+                decoder = Decoder(len(cnItos), hiddenSize)
+                # Loading the model.
+                encoder.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Machine_Translation/Seq2SeqEncoder.pt'))
+                decoder.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Machine_Translation/Seq2SeqDecoder.pt'))
+                # Making the model into evaluating state.
+                encoder = encoder.to(device).eval()
+                decoder = decoder.to(device).eval()
+                # Getting the input English sentence.
+                sentence = input("Please input the English sentence ('Exit' for quit): ")
+                # Handling the sentence.
+                while sentence != 'Exit':
+                    # Setting the list to storing the translation.
+                    translation = []
+                    # Initializing the index.
+                    index = 2
+                    # Spliting the sentence.
+                    enData = ['<bos>'] + nltk.word_tokenize(sentence) + ['<eos>']
+                    # Getting the length of the input English data.
+                    length = [len(enData)]
+                    # Getting the evaluating data.
+                    enData = torch.LongTensor(np.array([enStoi.get(word, enStoi.get('<unk>')) for word in enData]).astype('int64')).unsqueeze(0).to(device)
+                    # Getting the context hidden.
+                    hidden = encoder(enData, length)
+                    # Getting the first trainslated word.
+                    prediction = torch.LongTensor(np.array([cnStoi['<bos>']]).astype('int64')).unsqueeze(0).to(device)
+                    # Getting the trainslation.
+                    while cnItos[index] != '<eos>':
+                        # Getting the prediction.
+                        prediction, hidden = decoder(prediction, [1], hidden)
+                        # Getting the index.
+                        index = torch.argmax(prediction, 1)
+                        # Getting the word.
+                        if cnItos[index] != '<eos>':
+                            translation.append(cnItos[index])
+                        # Reseting the prediction.
+                        prediction = torch.LongTensor(np.array([index]).astype('int64')).unsqueeze(0).to(device)
+                    # Printing the tanslation.
+                    print("The Chinese translation is: " + " ".join(translation))
+                    # Getting the input English sentence.
+                    sentence = input("Please input the English sentence ('Exit' for quit): ")
+                # Quiting the system.
+                cmd = sentence
+            except:
+                # Giving the hint.
+                print("There is no model! Please training one first!")
+                # Training the model.
+                cmd = 'T'
+        else:
+            # Giving the hint.
+            cmd = input("Invalid command! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
