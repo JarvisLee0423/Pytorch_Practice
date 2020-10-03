@@ -49,7 +49,7 @@ else:
 
 # Setting the hyperparameters.
 # The value of the vocabulary size.
-vocabularySize = 10000
+vocabularySize = 50000
 # The value of the embedding size.
 embeddingSize = 100
 # The number of classes.
@@ -194,71 +194,70 @@ class CNNModelNN(nn.Module):
 
 # Training the model.
 if __name__ == "__main__":
-    pass
-    # # Generating the training data.
-    # textField, trainSet, devSet, testSet = dataGenerator.generator(vocabularySize, batchSize)
-    # # Creating the model, there are two extra parts in the vocabulary which are '<unk>' and '<pad>'.
-    # model = CNNModelNN(vocabularySize + 2, embeddingSize, classSize, textField.vocab.stoi[textField.pad_token])
-    # # Customizing the initialized parameters of the embedding layer.
-    # # Getting the vocabulary as the vectors. 
-    # gloveVector = textField.vocab.vectors
-    # # Reinitializing the parameters of the embedding layer.
-    # model.embedding.weight.data.copy_(gloveVector)
-    # # Adding the '<unk>' and '<pad>' tokens into the parameters of the embedding layer.
-    # model.embedding.weight.data[textField.vocab.stoi[textField.pad_token]]
-    # model.embedding.weight.data[textField.vocab.stoi[textField.unk_token]]
-    # # Setting the optimizer.
-    # optimizer = optim.Adam(model.parameters(), lr = learningRate)
-    # # Setting the loss function.
-    # loss = nn.BCEWithLogitsLoss()
-    # # Getting the command.
-    # cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
-    # # Handling the command.
-    # while cmd != 'Exit()':
-    #     # Handling the command.
-    #     if cmd == 'T':
-    #         # Training the model.
-    #         CNNModelNN.trainer(model, optimizer, loss, trainSet, devSet, epoches)
-    #         cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
-    #     elif cmd == 'E':
-    #         try:
-    #             # Initializing the words.
-    #             words = [i for i in range(8)]
-    #             # Loading the model.
-    #             model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Sentiment_Classifier/CNNModel.pt'))
-    #             # Sending the model into the corresponding computer device.
-    #             model = model.to(device)
-    #             # Testing the model.
-    #             testLoss, testAcc = CNNModelNN.evaluator(model.eval(), loss, testSet)
-    #             # Printing the testing result.
-    #             print("The testing: Loss = " + str(testLoss) + " || Acc = " + str(testAcc))
-    #             # Getting the input sentence.
-    #             print("Hint: The input sentence length have to greater than 7!!!")
-    #             sentence = input("Please input one sentiment sentence ('T' for training, 'Exit() for quit'): ")
-    #             while sentence != 'Exit()':
-    #                 # Getting the words from the sentence.
-    #                 words = [word for word in sentence.split()]
-    #                 # Getting the index of the word.
-    #                 wordsIndex = [textField.vocab.stoi[word] for word in words]
-    #                 # Sending the words' index into the corresponding device.
-    #                 wordsIndex = torch.LongTensor(wordsIndex).to(device).unsqueeze(1)
-    #                 # Getting the prediction.
-    #                 prediction = int(torch.sigmoid(model(wordsIndex)).item())
-    #                 # Giving the predicted result.
-    #                 if prediction == 0:
-    #                     print("The sentence is negative sentiment! :(")
-    #                 else:
-    #                     print("The sentence is positive sentiment! :)")
-    #                 # Getting the input sentence.
-    #                 sentence = input("Please input one sentiment sentence ('T' for training, 'Exit() for quit'): ")
-    #         except:
-    #             if len(words) <= 7:
-    #                 print("Invalid Input Sentence!!!")
-    #                 sentence = 'E'
-    #             else:
-    #                 # Giving the hint.
-    #                 print("There are not any trained model, please train one first!!!")
-    #                 sentence = 'T'
-    #         cmd = sentence
-    #     else:
-    #         cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit() for quit'): ")
+    # Generating the training data.
+    textField, trainSet, devSet, testSet = dataGenerator.generator(vocabularySize, batchSize)
+    # Creating the model, there are two extra parts in the vocabulary which are '<unk>' and '<pad>'.
+    model = CNNModelNN(vocabularySize + 2, embeddingSize, classSize, textField.vocab.stoi[textField.pad_token])
+    # Customizing the initialized parameters of the embedding layer.
+    # Getting the vocabulary as the vectors. 
+    gloveVector = textField.vocab.vectors
+    # Reinitializing the parameters of the embedding layer.
+    model.embedding.weight.data.copy_(gloveVector)
+    # Adding the '<unk>' and '<pad>' tokens into the parameters of the embedding layer.
+    model.embedding.weight.data[textField.vocab.stoi[textField.pad_token]]
+    model.embedding.weight.data[textField.vocab.stoi[textField.unk_token]]
+    # Setting the optimizer.
+    optimizer = optim.Adam(model.parameters(), lr = learningRate)
+    # Setting the loss function.
+    loss = nn.BCEWithLogitsLoss()
+    # Getting the command.
+    cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
+    # Handling the command.
+    while cmd != 'Exit()':
+        # Handling the command.
+        if cmd == 'T':
+            # Training the model.
+            CNNModelNN.trainer(model, optimizer, loss, trainSet, devSet, epoches)
+            cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
+        elif cmd == 'E':
+            try:
+                # Initializing the words.
+                words = [i for i in range(8)]
+                # Loading the model.
+                model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Sentiment_Classifier/CNNModel.pt'))
+                # Sending the model into the corresponding computer device.
+                model = model.to(device)
+                # Testing the model.
+                testLoss, testAcc = CNNModelNN.evaluator(model.eval(), loss, testSet)
+                # Printing the testing result.
+                print("The testing: Loss = " + str(testLoss) + " || Acc = " + str(testAcc))
+                # Getting the input sentence.
+                print("Hint: The input sentence length have to greater than 7!!!")
+                sentence = input("Please input one sentiment sentence ('T' for training, 'Exit() for quit'): ")
+                while sentence != 'Exit()':
+                    # Getting the words from the sentence.
+                    words = [word for word in sentence.split()]
+                    # Getting the index of the word.
+                    wordsIndex = [textField.vocab.stoi[word] for word in words]
+                    # Sending the words' index into the corresponding device.
+                    wordsIndex = torch.LongTensor(wordsIndex).to(device).unsqueeze(1)
+                    # Getting the prediction.
+                    prediction = int(torch.sigmoid(model(wordsIndex)).item())
+                    # Giving the predicted result.
+                    if prediction == 0:
+                        print("The sentence is negative sentiment! :(")
+                    else:
+                        print("The sentence is positive sentiment! :)")
+                    # Getting the input sentence.
+                    sentence = input("Please input one sentiment sentence ('T' for training, 'Exit() for quit'): ")
+            except:
+                if len(words) <= 7:
+                    print("Invalid Input Sentence!!!")
+                    sentence = 'E'
+                else:
+                    # Giving the hint.
+                    print("There are not any trained model, please train one first!!!")
+                    sentence = 'T'
+            cmd = sentence
+        else:
+            cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit() for quit'): ")
