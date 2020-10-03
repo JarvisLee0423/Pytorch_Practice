@@ -35,12 +35,12 @@ if torch.cuda.is_available():
     # Fixing the computer device.
     torch.cuda.set_device(0)
     # Fixing the random size.
-    #torch.cuda.manual_seed(1)
+    torch.cuda.manual_seed(1)
     # Setting the computer device.
     device = 'cuda'
 else:
     # Fixing the random seed.
-    #torch.manual_seed(1)
+    torch.manual_seed(1)
     # Setting the computer device.
     device = 'cpu'
 
@@ -216,73 +216,72 @@ class SimpleGANModelNN():
 
 # Training the model.
 if __name__ == "__main__":
-    pass
-    # # Getting the training data.
-    # trainSet = dataLoader.MNIST(batchSize)
-    # # Getting the data.
-    # for i, (data, _) in enumerate(trainSet):
-    #     # Reading the data.
-    #     for j in range(len(data)):
-    #         # Setting the transformating.
-    #         transform = transforms.ToPILImage()
-    #         # Getting the image.
-    #         image = transform(data[j])
-    #         # Plotting the image.
-    #         plt.title("Real MNIST Image")
-    #         plt.imshow(image, cmap = plt.cm.gray)
-    #         plt.show()
-    #         # Getting the command.
-    #         cmd = input("'Exit' for quitting: ")
-    #         # Handling the command.
-    #         if cmd == 'Exit':
-    #             break
-    #     if cmd == 'Exit':
-    #         break
-    # # Getting the command.
-    # cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    # # Handling the command.
-    # while cmd != 'Exit':
-    #     if cmd == 'T':
-    #         # Training the model.
-    #         SimpleGANModelNN.trainer(trainSet, epoches, batchSize, learningRateG, learningRateD, latentSize, imageSize)
-    #         # Getting the command.
-    #         cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    #     elif cmd == 'E':
-    #         try:
-    #             # Loading the model.
-    #             model = Generator()
-    #             model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/GAN_Image_Generator/SimpleGANGenerator.pt'))
-    #             # Sending the model into the corresponding device.
-    #             model = model.to(device).eval()
-    #             # Creating the latent space.
-    #             latentSpace = torch.randn(batchSize, latentSize).to(device)
-    #             # Getting the fake image.
-    #             fakeImages = model(latentSpace).reshape((batchSize, 1, 28, 28)).to('cpu')
-    #             # Plotting the image.
-    #             while True:
-    #                 # Getting the image number.
-    #                 i = input("Please input a image number (%d <= number <= %d and 'Exit' for quit): " % (1, batchSize))
-    #                 # Indicate the input.
-    #                 if i == 'Exit':
-    #                     break
-    #                 else:
-    #                     # Indicate the input value.
-    #                     try:
-    #                         i = eval(i)
-    #                         # Setting the transformation.
-    #                         transform = transforms.ToPILImage()
-    #                         # Getting the image.
-    #                         image = transform(fakeImages[i-1])
-    #                         # Plotting the image.
-    #                         plt.title("Generated MNIST Image")
-    #                         plt.imshow(image, cmap = plt.cm.gray)
-    #                         plt.show()
-    #                     except:
-    #                         print("Please input a valid number!!!")
-    #             # Getting the command.
-    #             cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    #         except:
-    #             print("There are not any model, please train one first!!!")
-    #             cmd = 'T'
-    #     else:
-    #         cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    # Getting the training data.
+    trainSet = dataLoader.MNIST(batchSize)
+    # Getting the data.
+    for i, (data, _) in enumerate(trainSet):
+        # Reading the data.
+        for j in range(len(data)):
+            # Setting the transformating.
+            transform = transforms.ToPILImage()
+            # Getting the image.
+            image = transform(data[j])
+            # Plotting the image.
+            plt.title("Real MNIST Image")
+            plt.imshow(image, cmap = plt.cm.gray)
+            plt.show()
+            # Getting the command.
+            cmd = input("'Exit' for quitting: ")
+            # Handling the command.
+            if cmd == 'Exit':
+                break
+        if cmd == 'Exit':
+            break
+    # Getting the command.
+    cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    # Handling the command.
+    while cmd != 'Exit':
+        if cmd == 'T':
+            # Training the model.
+            SimpleGANModelNN.trainer(trainSet, epoches, batchSize, learningRateG, learningRateD, latentSize, imageSize)
+            # Getting the command.
+            cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+        elif cmd == 'E':
+            try:
+                # Loading the model.
+                model = Generator()
+                model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/GAN_Image_Generator/SimpleGANGenerator.pt'))
+                # Sending the model into the corresponding device.
+                model = model.to(device).eval()
+                # Creating the latent space.
+                latentSpace = torch.randn(batchSize, latentSize).to(device)
+                # Getting the fake image.
+                fakeImages = model(latentSpace).reshape((batchSize, 1, 28, 28)).to('cpu')
+                # Plotting the image.
+                while True:
+                    # Getting the image number.
+                    i = input("Please input a image number (%d <= number <= %d and 'Exit' for quit): " % (1, batchSize))
+                    # Indicate the input.
+                    if i == 'Exit':
+                        break
+                    else:
+                        # Indicate the input value.
+                        try:
+                            i = eval(i)
+                            # Setting the transformation.
+                            transform = transforms.ToPILImage()
+                            # Getting the image.
+                            image = transform(fakeImages[i-1])
+                            # Plotting the image.
+                            plt.title("Generated MNIST Image")
+                            plt.imshow(image, cmap = plt.cm.gray)
+                            plt.show()
+                        except:
+                            print("Please input a valid number!!!")
+                # Getting the command.
+                cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+            except:
+                print("There are not any model, please train one first!!!")
+                cmd = 'T'
+        else:
+            cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
