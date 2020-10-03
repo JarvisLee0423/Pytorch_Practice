@@ -94,12 +94,12 @@ if torch.cuda.is_available():
     # Fixing the device.
     torch.cuda.set_device(0)
     # Fixing the random seed.
-    #torch.cuda.manual_seed(1)
+    torch.cuda.manual_seed(1)
     # Setting the device.
     device = 'cuda'
 else:
     # Fixing the random seed.
-    #torch.manual_seed(1)
+    torch.manual_seed(1)
     # Setting the device.
     device = 'cpu'
 
