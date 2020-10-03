@@ -310,85 +310,84 @@ class DCGANModelNN():
             torch.save(G.train().state_dict(), './Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/GAN_Image_Generator/DCGANGenerator.pt')
 
 if __name__ == "__main__":
-    pass
-    # #Getting the data.
-    # trainData = dataLoader.CELEBA(batchSize)
-    # # Outputing the data.
-    # for _, (images, _) in enumerate(trainData):
-    #     # Setting the transformation.
-    #     transform = transforms.Compose([
-    #         transforms.Normalize(
-    #             mean = (-1, -1, -1),
-    #             std = (2, 2, 2)
-    #         ),
-    #         transforms.ToPILImage()
-    #     ])
-    #     # Getting the image.
-    #     for i in range(len(images)):
-    #         # Transforming the image.
-    #         image = transform(images[i])
-    #         # Drawing the image.
-    #         plt.title("Real Face Image")
-    #         plt.imshow(image)
-    #         plt.show()
-    #         # Checking whether continuing to showing the image.
-    #         cmd = input("'Exit' for quit: ")
-    #         if cmd == 'Exit':
-    #             break
-    #     # Checking whether continuing to showing the image.
-    #     if cmd == 'Exit':
-    #         break
-    # #Getting the command.
-    # cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    # # Handling the command.
-    # while cmd != 'Exit':
-    #     if cmd == 'T':
-    #         # Training the model.
-    #         DCGANModelNN.trainer(trainData, latentSize, batchSize, learningRateG, learningRateD, epoches)
-    #         # Getting the command.
-    #         cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    #     elif cmd == 'E':
-    #         try:
-    #             # Loading the model.
-    #             model = Generator(latentSize)
-    #             model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/GAN_Image_Generator/DCGANGenerator.pt'))
-    #             # Sending the model into the corresponding device.
-    #             model = model.to(device).eval()
-    #             # Creating the latent space.
-    #             latentSpace = torch.randn(batchSize, latentSize, 1, 1).to(device)
-    #             # Getting the fake image.
-    #             fakeImages = model(latentSpace).to('cpu')
-    #             # Plotting the image.
-    #             while True:
-    #                 # Getting the image number.
-    #                 i = input("Please input a image number (%d <= number <= %d and 'Exit' for quit): " % (1, batchSize))
-    #                 # Indicate the input.
-    #                 if i == 'Exit':
-    #                     break
-    #                 else:
-    #                     # Indicate the input value.
-    #                     try:
-    #                         i = eval(i)
-    #                         # Setting the transformation.
-    #                         transform = transforms.Compose([
-    #                             transforms.Normalize(
-    #                                 mean = (-1, -1, -1),
-    #                                 std = (2, 2, 2)
-    #                             ),
-    #                             transforms.ToPILImage()
-    #                         ])
-    #                         # Getting the image.
-    #                         image = transform(fakeImages[i-1])
-    #                         # Plotting the image.
-    #                         plt.title("Generated Face Image")
-    #                         plt.imshow(image)
-    #                         plt.show()
-    #                     except:
-    #                         print("Please input a valid number!!!")
-    #             # Getting the command.
-    #             cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    #         except:
-    #             print("There are not any model, please train one first!!!")
-    #             cmd = 'T'
-    #     else:
-    #         cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    #Getting the data.
+    trainData = dataLoader.CELEBA(batchSize)
+    # Outputing the data.
+    for _, (images, _) in enumerate(trainData):
+        # Setting the transformation.
+        transform = transforms.Compose([
+            transforms.Normalize(
+                mean = (-1, -1, -1),
+                std = (2, 2, 2)
+            ),
+            transforms.ToPILImage()
+        ])
+        # Getting the image.
+        for i in range(len(images)):
+            # Transforming the image.
+            image = transform(images[i])
+            # Drawing the image.
+            plt.title("Real Face Image")
+            plt.imshow(image)
+            plt.show()
+            # Checking whether continuing to showing the image.
+            cmd = input("'Exit' for quit: ")
+            if cmd == 'Exit':
+                break
+        # Checking whether continuing to showing the image.
+        if cmd == 'Exit':
+            break
+    #Getting the command.
+    cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    # Handling the command.
+    while cmd != 'Exit':
+        if cmd == 'T':
+            # Training the model.
+            DCGANModelNN.trainer(trainData, latentSize, batchSize, learningRateG, learningRateD, epoches)
+            # Getting the command.
+            cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+        elif cmd == 'E':
+            try:
+                # Loading the model.
+                model = Generator(latentSize)
+                model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/GAN_Image_Generator/DCGANGenerator.pt'))
+                # Sending the model into the corresponding device.
+                model = model.to(device).eval()
+                # Creating the latent space.
+                latentSpace = torch.randn(batchSize, latentSize, 1, 1).to(device)
+                # Getting the fake image.
+                fakeImages = model(latentSpace).to('cpu')
+                # Plotting the image.
+                while True:
+                    # Getting the image number.
+                    i = input("Please input a image number (%d <= number <= %d and 'Exit' for quit): " % (1, batchSize))
+                    # Indicate the input.
+                    if i == 'Exit':
+                        break
+                    else:
+                        # Indicate the input value.
+                        try:
+                            i = eval(i)
+                            # Setting the transformation.
+                            transform = transforms.Compose([
+                                transforms.Normalize(
+                                    mean = (-1, -1, -1),
+                                    std = (2, 2, 2)
+                                ),
+                                transforms.ToPILImage()
+                            ])
+                            # Getting the image.
+                            image = transform(fakeImages[i-1])
+                            # Plotting the image.
+                            plt.title("Generated Face Image")
+                            plt.imshow(image)
+                            plt.show()
+                        except:
+                            print("Please input a valid number!!!")
+                # Getting the command.
+                cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+            except:
+                print("There are not any model, please train one first!!!")
+                cmd = 'T'
+        else:
+            cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
