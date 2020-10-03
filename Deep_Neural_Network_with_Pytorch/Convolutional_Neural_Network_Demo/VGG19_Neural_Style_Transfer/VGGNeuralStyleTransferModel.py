@@ -138,35 +138,34 @@ class VGGNeuralStyleTransferModelNN(nn.Module):
 
 # Training the model.
 if __name__ == "__main__":
-    pass
-    # # Getting the images.
-    # content = Image.open('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/VGG19_Neural_Style_Transfer/Image/Content.jpg')
-    # style = Image.open('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/VGG19_Neural_Style_Transfer/Image/Style.jpg')
-    # plt.imshow(content)
-    # plt.show()
-    # plt.imshow(style)
-    # plt.show()
-    # # Preprocessing the images.
-    # content = dataProcessor.imageProcessor(content)
-    # style = dataProcessor.imageProcessor(style)
-    # # Setting the transform.
-    # transform = transforms.ToPILImage()
-    # # Plotting the images.
-    # show = transform(content.squeeze())
-    # plt.imshow(show)
-    # plt.show()
-    # show = transform(style.squeeze())
-    # plt.imshow(show)
-    # plt.show()
-    # # Training the model.
-    # target = VGGNeuralStyleTransferModelNN.trainer(content.to(device), style.to(device), epoches, learningRate, momentum, weightDecay, contentWeight, styleWeight)
-    # # Getting the denormalization transformation.
-    # denormalization = transforms.Normalize([-2.12, -2.04, -1.80], [4.37, 4.46, 4.44])
-    # # Denormalizing the target image.
-    # target = denormalization(target.squeeze()).clamp_(0, 1)
-    # # Plotting the target image.
-    # target = transform(target)
-    # plt.figure('Target Image')
-    # plt.imshow(target)
-    # plt.savefig('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/VGG19_Neural_Style_Transfer/Image/Target.jpg')
-    # plt.show()
+    # Getting the images.
+    content = Image.open('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/VGG19_Neural_Style_Transfer/Image/Content.jpg')
+    style = Image.open('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/VGG19_Neural_Style_Transfer/Image/Style.jpg')
+    plt.imshow(content)
+    plt.show()
+    plt.imshow(style)
+    plt.show()
+    # Preprocessing the images.
+    content = dataProcessor.imageProcessor(content)
+    style = dataProcessor.imageProcessor(style)
+    # Setting the transform.
+    transform = transforms.ToPILImage()
+    # Plotting the images.
+    show = transform(content.squeeze())
+    plt.imshow(show)
+    plt.show()
+    show = transform(style.squeeze())
+    plt.imshow(show)
+    plt.show()
+    # Training the model.
+    target = VGGNeuralStyleTransferModelNN.trainer(content.to(device), style.to(device), epoches, learningRate, momentum, weightDecay, contentWeight, styleWeight)
+    # Getting the denormalization transformation.
+    denormalization = transforms.Normalize([-2.12, -2.04, -1.80], [4.37, 4.46, 4.44])
+    # Denormalizing the target image.
+    target = denormalization(target.squeeze()).clamp_(0, 1)
+    # Plotting the target image.
+    target = transform(target)
+    plt.figure('Target Image')
+    plt.imshow(target)
+    plt.savefig('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/VGG19_Neural_Style_Transfer/Image/Target.jpg')
+    plt.show()
