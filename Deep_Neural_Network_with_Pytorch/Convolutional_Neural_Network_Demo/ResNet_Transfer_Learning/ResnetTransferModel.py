@@ -44,14 +44,10 @@ inChannel = 3
 classSize = 3
 # The value of the learning rate.
 learningRate = 0.01
-# The value of the momentum.
-momentum = 0.9
-# The value of the weight decay.
-weightDecay = 0.0005
 # The value of the batch size.
-batchSize = 32
+batchSize = 64
 # The value of the epoches.
-epoches = 10
+epoches = 25
 
 # Creating the class to getting the training and development data.
 class dataLoader():
@@ -65,34 +61,26 @@ class dataLoader():
             datasets.ImageFolder(
                 root = './Datasets/NGZK/train/',
                 transform = transforms.Compose([
-                    transforms.RandomResizedCrop(224),
-                    transforms.RandomHorizontalFlip(),
+                    transforms.Resize((224, 224)),
                     transforms.ToTensor(),
                     normalize
                 ])
             ),
             batch_size = batchSize,
-            num_workers = 16,
-            shuffle = True,
-            pin_memory = True,
-            drop_last = True
+            shuffle = True
         )
         # Getting the development data.
         devData = DataLoader(
             datasets.ImageFolder(
                 root = './Datasets/NGZK/val/',
                 transform = transforms.Compose([
-                    transforms.Resize(256),
-                    transforms.CenterCrop(224),
+                    transforms.Resize((224, 224)),
                     transforms.ToTensor(),
                     normalize
                 ])
             ),
             batch_size = batchSize,
-            num_workers = 16,
-            shuffle = False, 
-            pin_memory = True, 
-            drop_last = False
+            shuffle = False
         )
         # Returning the data.
         return trainData, devData
@@ -123,9 +111,9 @@ class ResnetTransferModelNN():
         # Sending the model into the corresponding device.
         model = model.to(device)
         # Creating the optimizer.
-        optimizer = optim.SGD(filter(lambda p: p.requires_grad, model.parameters()), lr = learningRate, momentum = momentum, weight_decay = weightDecay)
+        optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr = learningRate, betas = [0.9, 0.999])
         # Creating the learning rate scheduler.
-        scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max = len(trainSet), eta_min = 0)
+        scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0 = len(trainSet), T_mult = 1, eta_min = 0)
         # Creating the loss function.
         loss = nn.CrossEntropyLoss()
         # Initializing the evaluating accuracy.
@@ -158,9 +146,6 @@ class ResnetTransferModelNN():
                 accuracy = accuracy.sum().float() / len(accuracy)
                 # Storing the accuracy.
                 trainAcc.append(accuracy.item())
-                # Printing the training information.
-                if i % 100 == 0:
-                    print("The iteration " + str(i) + "/" + str(len(trainSet)) + " training: Loss = " + str(cost.item()) + " || Acc = " + str(accuracy.item()))
             # Evaluating the model.
             evalLoss, evalAcc = ResnetTransferModelNN.evaluator(model.eval(), optimizer, loss, devSet)
             # Selecting the best model.
@@ -207,89 +192,95 @@ class ResnetTransferModelNN():
 
 # Training the model.
 if __name__ == "__main__":
-    pass
-    # # Getting the training data.
-    # trainSet, devSet = dataLoader.NGZK(batchSize)
-    # # Getting the data dictionary.
-    # dataDict = {'trainSet': trainSet, 'devSet': devSet}
-    # for each in ['trainSet', 'devSet']:
-    #     # Reading the data.
-    #     for _, (data, _) in enumerate(dataDict[each]):
-    #         # Getting the transforming method.
-    #         transform = transforms.ToPILImage()
-    #         # Getting each image.
-    #         for j in range(len(data)):
-    #             # Transforming the tensor into image.
-    #             image = transform(data[j])
-    #             # Showing the image.
-    #             plt.imshow(image)
-    #             plt.show()
-    #             # Getting the cmd.
-    #             cmd = input("'Exit' for quitting showing the image: ")
-    #             # Handling the command.
-    #             if cmd == 'Exit':
-    #                 break
-    #         if cmd == 'Exit':
-    #             break
-    # # Getting the command.
-    # cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    # # Handling the command.
-    # while cmd != 'Exit':
-    #     if cmd == 'T':
-    #         # Training the model.
-    #         ResnetTransferModelNN.trainer(trainSet, devSet, epoches, classSize, learningRate)
-    #         cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
-    #     elif cmd == 'E':
-    #         try:
-    #             # Getting the output label.
-    #             labels = ['堀未央奈', '齋藤飛鳥', '筒井あやめ']
-    #             # Loading the model.
-    #             model = ResnetTransferModelNN.ResnetInitialization(classSize)
-    #             model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/ResNet_Transfer_Learning/ResnetTransferModel.pt'))
-    #             # Sending the model into corresponding device.
-    #             model = model.to(device)
-    #             # Converting the model mode.
-    #             model.eval()
-    #             # Getting the data.
-    #             for _, (data, label) in enumerate(devSet):
-    #                 # Getting the data.
-    #                 for j in range(len(data)):
-    #                     # Preparing the testing data.
-    #                     testData = Variable(data[j]).to(device)
-    #                     # Getting the prediction.
-    #                     prediction = model(testData.unsqueeze(0))
-    #                     # Getting the predicted label.
-    #                     predictedLabel = torch.argmax(prediction, 1)
-    #                     # Checking the prediction.
-    #                     if predictedLabel.item() == label[j].item():
-    #                         print("Prediction Success!!!")
-    #                     else:
-    #                         print("Prediction Fail!!!")
-    #                     # Getting the transformation methods.
-    #                     transform = transforms.Compose([transforms.ToPILImage()])
-    #                     # Getting the image data.
-    #                     image = data[j]
-    #                     # Getting the mean and std.
-    #                     mean = [0.485, 0.456, 0.406]
-    #                     std = [0.229, 0.224, 0.225]
-    #                     # Recovering the image.
-    #                     image[0] = image[0] * std[0] + mean[0]
-    #                     image[1] = image[1] * std[1] + mean[1]
-    #                     image[2] = image[2] * std[2] + mean[2]
-    #                     # Getting the image.
-    #                     image = transform(image)
-    #                     # Showing the image.
-    #                     plt.figure(labels[predictedLabel.item()])
-    #                     plt.imshow(image)
-    #                     plt.show()
-    #                     # Getting the command.
-    #                     cmd = input("'Exit' for quiting the prediction: ")
-    #                     if cmd == 'Exit':
-    #                         break
-    #                 if cmd == 'Exit':
-    #                     break
-    #         except:
-    #             print("There are not any trained model, please train one first!!!")
-    #             cmd = 'T'
-    #     else:
-    #         cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    # Getting the training data.
+    trainSet, devSet = dataLoader.NGZK(batchSize)
+    # Getting the data dictionary.
+    dataDict = {'trainSet': trainSet, 'devSet': devSet}
+    for each in ['trainSet', 'devSet']:
+        # Reading the data.
+        for _, (data, _) in enumerate(dataDict[each]):
+            # Getting the transforming method.
+            transform = transforms.ToPILImage()
+            # Getting each image.
+            for j in range(len(data)):
+                # Getting the mean and std.
+                mean = [0.485, 0.456, 0.406]
+                std = [0.229, 0.224, 0.225]
+                # Recovering the image.
+                data[j][0] = data[j][0] * std[0] + mean[0]
+                data[j][1] = data[j][1] * std[1] + mean[1]
+                data[j][2] = data[j][2] * std[2] + mean[2]
+                # Transforming the tensor into image.
+                image = transform(data[j])
+                # Showing the image.
+                plt.imshow(image)
+                plt.show()
+                # Getting the cmd.
+                cmd = input("'Exit' for quitting showing the image: ")
+                # Handling the command.
+                if cmd == 'Exit':
+                    break
+            if cmd == 'Exit':
+                break
+    # Getting the command.
+    cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+    # Handling the command.
+    while cmd != 'Exit':
+        if cmd == 'T':
+            # Training the model.
+            ResnetTransferModelNN.trainer(trainSet, devSet, epoches, classSize, learningRate)
+            cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
+        elif cmd == 'E':
+            try:
+                # Getting the output label.
+                labels = ['堀未央奈', '齋藤飛鳥', '筒井あやめ']
+                # Loading the model.
+                model = ResnetTransferModelNN.ResnetInitialization(classSize)
+                model.load_state_dict(torch.load('./Deep_Neural_Network_with_Pytorch/Convolutional_Neural_Network_Demo/ResNet_Transfer_Learning/ResnetTransferModel.pt'))
+                # Sending the model into corresponding device.
+                model = model.to(device)
+                # Converting the model mode.
+                model.eval()
+                # Getting the data.
+                for _, (data, label) in enumerate(devSet):
+                    # Getting the data.
+                    for j in range(len(data)):
+                        # Preparing the testing data.
+                        testData = Variable(data[j]).to(device)
+                        # Getting the prediction.
+                        prediction = model(testData.unsqueeze(0))
+                        # Getting the predicted label.
+                        predictedLabel = torch.argmax(prediction, 1)
+                        # Checking the prediction.
+                        if predictedLabel.item() == label[j].item():
+                            print("Prediction Success!!!")
+                        else:
+                            print("Prediction Fail!!!")
+                        # Getting the transformation methods.
+                        transform = transforms.Compose([transforms.ToPILImage()])
+                        # Getting the image data.
+                        image = data[j]
+                        # Getting the mean and std.
+                        mean = [0.485, 0.456, 0.406]
+                        std = [0.229, 0.224, 0.225]
+                        # Recovering the image.
+                        image[0] = image[0] * std[0] + mean[0]
+                        image[1] = image[1] * std[1] + mean[1]
+                        image[2] = image[2] * std[2] + mean[2]
+                        # Getting the image.
+                        image = transform(image)
+                        # Showing the image.
+                        plt.figure(labels[predictedLabel.item()])
+                        plt.imshow(image)
+                        plt.show()
+                        # Getting the command.
+                        cmd = input("'Exit' for quiting the prediction: ")
+                        if cmd == 'Exit':
+                            break
+                    if cmd == 'Exit':
+                        break
+            except:
+                print("There are not any trained model, please train one first!!!")
+                cmd = 'T'
+        else:
+            cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit' for quit): ")
