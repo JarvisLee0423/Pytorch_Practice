@@ -192,47 +192,46 @@ class SkipGramNN(nn.Module):
         # Computing the consine similarity of the testing word and other words in embedding level.                                                              
         cosineDistance = np.array([scipy.spatial.distance.cosine(e, wordEmbedding) for e in embeddingMatrix])
         # Returning the top ten most similar words of the testing word.   
-        return [itos[index] for index in cosineDistance.argsort()[:10]]                                         
+        return [itos[index] for index in cosineDistance.argsort()[:30]]                                         
 
 # Training the model.
 if __name__ == "__main__":
-    pass
-    # # Getting the necessary components of data generator.
-    # vocab, text, itos, stoi, wordFreq = dataGenerator.generatorComponents()
-    # # Generating the training set.                                         
-    # trainSet = tud.DataLoader(dataGenerator(text, itos, stoi, wordFreq), batch_size = batchSize, shuffle = True)
-    # # Creating the model.
-    # model = SkipGramNN(vocabularySize, embeddingSize)
-    # # Setting the optimizer.                                                  
-    # optimizer = optim.Adam(model.parameters(), lr = learningRate, weight_decay = 0.00005)                                                                                              
-    # cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
-    # while cmd != 'Exit()':
-    #     if cmd == 'T':
-    #         # Training the model.
-    #         SkipGramNN.trainer(model, optimizer, trainSet)
-    #         cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
-    #     elif cmd == 'E':
-    #         # Getting the testing words.
-    #         word = input("Please input a word ('Exit()' for quit): ")
-    #         # Indicating whether applying the testing or not.                                                                               
-    #         while word != 'Exit()':                                                                                                                 
-    #             try:
-    #                 # Loading the paramters.
-    #                 params = torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Word_Embedding/SkipGram.pt')
-    #                 # Getting the parameters.              
-    #                 embeddingMatrix = params['inputEmbedding.weight'].cpu().numpy()
-    #                 # Converting the testing word into lowercase.                                                                              
-    #                 word = str.lower(word)
-    #                 # Printing the testing result.                                                                                                   
-    #                 print("The similar words of " + word + " are : " + " ".join(SkipGramNN.evaluator(embeddingMatrix, word, itos, stoi)))
-    #                 # Getting another testing word.            
-    #                 word = input("Please input a word ('Exit()' for quit): ")                                                                       
-    #             except:
-    #                 # Giving the hint.
-    #                 print("Please training a model first!!!")
-    #                 # Applying the training.                                                                                       
-    #                 word = 'T'                                                                                                                      
-    #                 break
-    #         cmd = word
-    #     else:
-    #         cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
+    # Getting the necessary components of data generator.
+    vocab, text, itos, stoi, wordFreq = dataGenerator.generatorComponents()
+    # Generating the training set.                                         
+    trainSet = tud.DataLoader(dataGenerator(text, itos, stoi, wordFreq), batch_size = batchSize, shuffle = True)
+    # Creating the model.
+    model = SkipGramNN(vocabularySize, embeddingSize)
+    # Setting the optimizer.                                                  
+    optimizer = optim.Adam(model.parameters(), lr = learningRate, weight_decay = 0.00005)                                                                                              
+    cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
+    while cmd != 'Exit()':
+        if cmd == 'T':
+            # Training the model.
+            SkipGramNN.trainer(model, optimizer, trainSet)
+            cmd = input("Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
+        elif cmd == 'E':
+            # Getting the testing words.
+            word = input("Please input a word ('Exit()' for quit): ")
+            # Indicating whether applying the testing or not.                                                                               
+            while word != 'Exit()':                                                                                                                 
+                try:
+                    # Loading the paramters.
+                    params = torch.load('./Deep_Neural_Network_with_Pytorch/Recurrent_Neural_Network_Demo/Word_Embedding/SkipGram.pt')
+                    # Getting the parameters.              
+                    embeddingMatrix = params['inputEmbedding.weight'].cpu().numpy()
+                    # Converting the testing word into lowercase.                                                                              
+                    word = str.lower(word)
+                    # Printing the testing result.                                                                                                   
+                    print("The similar words of " + word + " are : " + " ".join(SkipGramNN.evaluator(embeddingMatrix, word, itos, stoi)))
+                    # Getting another testing word.            
+                    word = input("Please input a word ('Exit()' for quit): ")                                                                       
+                except:
+                    # Giving the hint.
+                    print("Please training a model first!!!")
+                    # Applying the training.                                                                                       
+                    word = 'T'                                                                                                                      
+                    break
+            cmd = word
+        else:
+            cmd = input("Invalid Input! Please input the command ('T' for training, 'E' for evaluating, 'Exit()' for quit): ")
