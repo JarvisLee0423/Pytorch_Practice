@@ -1,6 +1,6 @@
 #============================================================================================#
 #   Copyright:          JarvisLee                       
-#   Date:               2020/10/02
+#   Date:               2020/10/03
 #   Project Name:       Seq2SeqGRUModel.py
 #   Description:        Build the sequence to sequence model to handle the English to Chinese
 #                       machine translation problem.
