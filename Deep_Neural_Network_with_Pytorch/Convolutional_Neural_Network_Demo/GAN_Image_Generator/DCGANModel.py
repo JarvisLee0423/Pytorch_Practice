@@ -4,7 +4,7 @@
 #   Project Name:       DCGANModel.py
 #   Description:        Build a deconvolutional GAN model to generating the image in 
 #                       MNIST datasets.
-#   Model Description:  Input               ->  MNIST Images and Fake Images
+#   Model Description:  Input               ->  CELEBA Images and Fake Images
 #                       Generator           ->  ConvTranspose2d     ->  InChannel:  100
 #                                                                   ->  OutChannel: 1024
 #                                                                   ->  Kernel:     (4, 4)
