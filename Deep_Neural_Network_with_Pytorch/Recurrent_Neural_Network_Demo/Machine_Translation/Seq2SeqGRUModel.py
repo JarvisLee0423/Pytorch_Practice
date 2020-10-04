@@ -479,8 +479,12 @@ if __name__ == "__main__":
                     hidden = encoder(enData, length)
                     # Getting the first trainslated word.
                     prediction = torch.LongTensor(np.array([cnStoi['<bos>']]).astype('int64')).unsqueeze(0).to(device)
+                    # Setting the counter to limit the length of the translated sentence.
+                    count = 0
                     # Getting the trainslation.
                     while cnItos[index] != '<eos>':
+                        # Computing the counter.
+                        count += 1
                         # Getting the prediction.
                         prediction, hidden = decoder(prediction, [1], hidden)
                         # Getting the index.
@@ -490,6 +494,9 @@ if __name__ == "__main__":
                             translation.append(cnItos[index])
                         # Reseting the prediction.
                         prediction = torch.LongTensor(np.array([index]).astype('int64')).unsqueeze(0).to(device)
+                        # Distinguishing whether the length is long enough.
+                        if count >= 20:
+                            break
                     # Printing the tanslation.
                     print("The Chinese translation is: " + " ".join(translation))
                     # Getting the input English sentence.
