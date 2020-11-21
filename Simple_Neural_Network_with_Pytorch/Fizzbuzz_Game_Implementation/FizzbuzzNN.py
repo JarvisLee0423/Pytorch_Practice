@@ -213,96 +213,95 @@ class FizzbuzzNN(nn.Module):
 
 # Training and testing the model.
 if __name__ == "__main__":
-    pass
-    # cmd = input("Please choose train a model or evaluate the model ('T' for train, 'E' for evaluate, 'Exit' for quit): ")
-    # while cmd != "Exit":
-    #     if cmd == 'T':
-    #         # Getting the total number of the fizzbuzz game.
-    #         m = input("Please input the upper bound of the fizzbuzz game (Integer Value, 'Exit' for quit)): ")
-    #         while True:
-    #             try:
-    #                 # Setting the total number of the data.
-    #                 m = int(m) + 1
-    #                 # Setting the number of features for each data.
-    #                 n_0 = int(np.log2(m - 1))
-    #                 # Initializating the training data.
-    #                 # Generating all the data.
-    #                 trainData, devData, testData = dataGenerator.generateData(dataGenerator.getData(m - 1))
-    #                 # Getting the training data.                                                 
-    #                 trainingSet = torch.tensor([dataGenerator.Encoder(data, m - 1) for data in trainData], dtype = torch.float32).to(device)
-    #                 # Getting the training label.  
-    #                 trainingLabelSet = dataGenerator.labelEncoder(trainData).to(device)
-    #                 # Getting the development data.                                                       
-    #                 devSet = torch.tensor([dataGenerator.Encoder(data, m - 1) for data in devData], dtype = torch.float32).to(device)
-    #                 # Getting the development label.         
-    #                 devLabelSet = dataGenerator.labelEncoder(devData).to(device)
-    #                 # Getting the testing data.                                                              
-    #                 testSet = torch.tensor([dataGenerator.Encoder(data, m - 1) for data in testData], dtype = torch.float32).to(device)
-    #                 # Getting the testing label.      
-    #                 testLabelSet = dataGenerator.labelEncoder(testData).to(device)
-    #                 # Doing the training.                                                            
-    #                 FizzbuzzNN.trainer(trainingSet, trainingLabelSet, devSet, devLabelSet, m = m, n_0 = n_0)                                 
-    #                 # Evaluating the model.
-    #                 # Creating the evaluating model.  
-    #                 model = FizzbuzzNN(n_0, n_1, n_2, n_3)
-    #                 # Loading the model.                                                                   
-    #                 model.load_state_dict(torch.load('./Simple_Neural_Network_with_Pytorch/Fizzbuzz_Game_Implementation/Fizzbuzz.pt'))
-    #                 # Getting the evaluating result.
-    #                 evalCost, evalAccuracy = FizzbuzzNN.evaluator(testSet, testLabelSet, model.to(device).eval(), loss = nn.CrossEntropyLoss())
-    #                 print("The value of testing loss is: " + str(evalCost))
-    #                 print("The value of testing accuracy is: " + str(evalAccuracy))
-    #                 cmd = input("Now you can evaluate the model ('E' for evaluate, 'Exit' for quit): ")
-    #                 break
-    #             except:
-    #                 if m == "Exit":
-    #                     cmd = m
-    #                     break
-    #                 else:
-    #                     m = input("Invalid Input! Please input the upper bound of the fizzbuzz game (Integer Value, 'Exit' for quit)): ")
-    #     elif cmd == 'E':
-    #         # Getting the corresponding weights' dimensions.
-    #         param = torch.load('./Simple_Neural_Network_with_Pytorch/Fizzbuzz_Game_Implementation/Fizzbuzz.pt')
-    #         # Getting the number of features.
-    #         n_0 = param['linear_1.weight'].shape[1]
-    #         # Getting the number of nodes for first layers.
-    #         n_1 = param['linear_2.weight'].shape[1]
-    #         # Getting the number of nodes for second layers.
-    #         n_2 = param['linear_3.weight'].shape[1]
-    #         # Getting the number of nodes for third layers.
-    #         n_3 = param['linear_3.weight'].shape[0]
-    #         # Generating the model.
-    #         # Creating the evaluating model.
-    #         model = FizzbuzzNN(n_0, n_1, n_2, n_3)                                                                                 
-    #         try:
-    #             # Loading the model.
-    #             model.load_state_dict(torch.load('./Simple_Neural_Network_with_Pytorch/Fizzbuzz_Game_Implementation/Fizzbuzz.pt'))  
-    #             number = input("Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
-    #             while True:
-    #                 try:
-    #                     number = int(number)
-    #                     if number > np.power(2, model.state_dict().get("linear_1.weight").shape[1]) or number < 0:
-    #                         number = input("Invalid Input! Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
-    #                     else:
-    #                         # Converting the model into evaluation model.
-    #                         model.eval().to(device)
-    #                         # Converting the input number into the testing data.
-    #                         testData = torch.tensor(dataGenerator.Encoder(number, np.power(2, model.state_dict().get("linear_1.weight").shape[1])), dtype = torch.float32).to(device)
-    #                         # Evaluating the model.
-    #                         testLabel = torch.argmax(model(testData))
-    #                         print("The model predict the input is: " + dataGenerator.labelDecoder(testLabel.item()))
-    #                         print("The real label is: " + dataGenerator.labelDecoder(dataGenerator.fizzbuzz(number)))
-    #                         if dataGenerator.labelDecoder(testLabel) == dataGenerator.labelDecoder(dataGenerator.fizzbuzz(number)):
-    #                             number = input("Successed! Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
-    #                         else:
-    #                             number = input("Failure! Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
-    #                 except:
-    #                     if number == "Exit":
-    #                         cmd = number
-    #                         break
-    #                     else:
-    #                         number = input("Invalid Input! Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
-    #         except:
-    #             print("No model has been found, please train one first!!!")
-    #             cmd = 'T'
-    #     else:
-    #         cmd = input("Invalid command! Please try again ('T' for train, 'E' for evaluate, 'Exit' for quit): ")
+    cmd = input("Please choose train a model or evaluate the model ('T' for train, 'E' for evaluate, 'Exit' for quit): ")
+    while cmd != "Exit":
+        if cmd == 'T':
+            # Getting the total number of the fizzbuzz game.
+            m = input("Please input the upper bound of the fizzbuzz game (Integer Value, 'Exit' for quit)): ")
+            while True:
+                try:
+                    # Setting the total number of the data.
+                    m = int(m) + 1
+                    # Setting the number of features for each data.
+                    n_0 = int(np.log2(m - 1))
+                    # Initializating the training data.
+                    # Generating all the data.
+                    trainData, devData, testData = dataGenerator.generateData(dataGenerator.getData(m - 1))
+                    # Getting the training data.                                                 
+                    trainingSet = torch.tensor([dataGenerator.Encoder(data, m - 1) for data in trainData], dtype = torch.float32).to(device)
+                    # Getting the training label.  
+                    trainingLabelSet = dataGenerator.labelEncoder(trainData).to(device)
+                    # Getting the development data.                                                       
+                    devSet = torch.tensor([dataGenerator.Encoder(data, m - 1) for data in devData], dtype = torch.float32).to(device)
+                    # Getting the development label.         
+                    devLabelSet = dataGenerator.labelEncoder(devData).to(device)
+                    # Getting the testing data.                                                              
+                    testSet = torch.tensor([dataGenerator.Encoder(data, m - 1) for data in testData], dtype = torch.float32).to(device)
+                    # Getting the testing label.      
+                    testLabelSet = dataGenerator.labelEncoder(testData).to(device)
+                    # Doing the training.                                                            
+                    FizzbuzzNN.trainer(trainingSet, trainingLabelSet, devSet, devLabelSet, m = m, n_0 = n_0)                                 
+                    # Evaluating the model.
+                    # Creating the evaluating model.  
+                    model = FizzbuzzNN(n_0, n_1, n_2, n_3)
+                    # Loading the model.                                                                   
+                    model.load_state_dict(torch.load('./Simple_Neural_Network_with_Pytorch/Fizzbuzz_Game_Implementation/Fizzbuzz.pt'))
+                    # Getting the evaluating result.
+                    evalCost, evalAccuracy = FizzbuzzNN.evaluator(testSet, testLabelSet, model.to(device).eval(), loss = nn.CrossEntropyLoss())
+                    print("The value of testing loss is: " + str(evalCost))
+                    print("The value of testing accuracy is: " + str(evalAccuracy))
+                    cmd = input("Now you can evaluate the model ('E' for evaluate, 'Exit' for quit): ")
+                    break
+                except:
+                    if m == "Exit":
+                        cmd = m
+                        break
+                    else:
+                        m = input("Invalid Input! Please input the upper bound of the fizzbuzz game (Integer Value, 'Exit' for quit)): ")
+        elif cmd == 'E':
+            # Getting the corresponding weights' dimensions.
+            param = torch.load('./Simple_Neural_Network_with_Pytorch/Fizzbuzz_Game_Implementation/Fizzbuzz.pt')
+            # Getting the number of features.
+            n_0 = param['linear_1.weight'].shape[1]
+            # Getting the number of nodes for first layers.
+            n_1 = param['linear_2.weight'].shape[1]
+            # Getting the number of nodes for second layers.
+            n_2 = param['linear_3.weight'].shape[1]
+            # Getting the number of nodes for third layers.
+            n_3 = param['linear_3.weight'].shape[0]
+            # Generating the model.
+            # Creating the evaluating model.
+            model = FizzbuzzNN(n_0, n_1, n_2, n_3)                                                                                 
+            try:
+                # Loading the model.
+                model.load_state_dict(torch.load('./Simple_Neural_Network_with_Pytorch/Fizzbuzz_Game_Implementation/Fizzbuzz.pt'))  
+                number = input("Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
+                while True:
+                    try:
+                        number = int(number)
+                        if number > np.power(2, model.state_dict().get("linear_1.weight").shape[1]) or number < 0:
+                            number = input("Invalid Input! Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
+                        else:
+                            # Converting the model into evaluation model.
+                            model.eval().to(device)
+                            # Converting the input number into the testing data.
+                            testData = torch.tensor(dataGenerator.Encoder(number, np.power(2, model.state_dict().get("linear_1.weight").shape[1])), dtype = torch.float32).to(device)
+                            # Evaluating the model.
+                            testLabel = torch.argmax(model(testData))
+                            print("The model predict the input is: " + dataGenerator.labelDecoder(testLabel.item()))
+                            print("The real label is: " + dataGenerator.labelDecoder(dataGenerator.fizzbuzz(number)))
+                            if dataGenerator.labelDecoder(testLabel) == dataGenerator.labelDecoder(dataGenerator.fizzbuzz(number)):
+                                number = input("Successed! Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
+                            else:
+                                number = input("Failure! Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
+                    except:
+                        if number == "Exit":
+                            cmd = number
+                            break
+                        else:
+                            number = input("Invalid Input! Please input a integer between " + str(0) + " and " + str(np.power(2, model.state_dict().get("linear_1.weight").shape[1])) + " ('Exit' for quit): ")
+            except:
+                print("No model has been found, please train one first!!!")
+                cmd = 'T'
+        else:
+            cmd = input("Invalid command! Please try again ('T' for train, 'E' for evaluate, 'Exit' for quit): ")
