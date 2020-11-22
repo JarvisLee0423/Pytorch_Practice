@@ -136,8 +136,6 @@ def trainer(trainSet, devSet):
                 # Computing the accuracy.
                 accuracy = (torch.argmax(prediction, 1) == label)
                 accuracy = accuracy.sum().float() / len(accuracy)
-                # Storing the loss.
-                trainLoss.append(cost.item())
                 # Storing the accuracy.
                 trainAcc.append(accuracy.item())
 
