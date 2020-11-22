@@ -1,6 +1,6 @@
 #============================================================================================#
 #   Copyright:          JarvisLee                       
-#   Date:               2020/08/26
+#   Date:               2020/11/22
 #   Project Name:       ResnetTransferModel.py
 #   Description:        Apply the Resnet 18 to do the transfer learning to process the three
 #                       classes classification problem.
