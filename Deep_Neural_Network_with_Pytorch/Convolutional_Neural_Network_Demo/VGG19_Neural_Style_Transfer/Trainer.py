@@ -63,7 +63,7 @@ def trainer(content, style):
     # Creating the visdom.
     vis = Visdom(env = 'NeuralStyleModel')
     # Creating the graph.
-    lossGraph = vis.line(X = [0], Y = [0], opts = dict(legend = ['ContentLoss', 'StyleLoss'], xlabel = 'Epoches', ylabel = 'Loss', title = f'{Cfg.contentIM} and {Cfg.styleIM} Neural Transfer Loss'), name = 'ContentLoss')
+    lossGraph = vis.line(X = [0], Y = [0], opts = dict(legend = ['ContentLoss', 'StyleLoss'], xlabel = 'Epoches', ylabel = 'Loss', title = f'{Cfg.contentIM} and {Cfg.styleIM} Neural Style Transfer Loss'), name = 'ContentLoss')
     vis.line(X = [0], Y = [0], win = lossGraph, update = 'append', name = 'StyleLoss')
     # Initializing the target image.
     target = torch.rand_like(content).to(device).requires_grad_(True)
@@ -127,6 +127,8 @@ def trainer(content, style):
         )
         # Logging the information
         logging.info('Epoch [%d/%d] -> Training: Content Loss [%.4f] || Style Loss [%.4f]' % (epoch + 1, Cfg.epoches, contentLoss.item(), styleLoss.item()))
+    # Saving the graph.
+    vis.save(envs = ['NeuralStyleModel'])
     # Return the target image.
     return target.to('cpu')
 
