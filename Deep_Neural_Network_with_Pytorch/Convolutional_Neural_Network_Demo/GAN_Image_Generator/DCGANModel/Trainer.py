@@ -150,6 +150,8 @@ def trainer(trainSet):
         )
         # Saving the model.
         torch.save(G.train().state_dict(), Cfg.modelDir + '/DCGANGenerator.pt')
+    # Saving the graph.
+    vis.save(envs = ['DCGANModel'])
 
 # Training the model.
 if __name__ == "__main__":
