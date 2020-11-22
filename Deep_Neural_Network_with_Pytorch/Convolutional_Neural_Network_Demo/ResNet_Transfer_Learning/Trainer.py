@@ -196,6 +196,8 @@ def trainer(trainSet, devSet):
             logging.info("Learning Rate Decay -> " + str(scheduler.get_last_lr()))
         # Converting the model mode.
         model.train()
+    # Saving the graph.
+    vis.save(envs = ['ResnetTransferModel'])
 
 # Training the model.
 if __name__ == "__main__":
