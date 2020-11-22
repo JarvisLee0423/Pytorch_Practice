@@ -15,19 +15,19 @@ Cfg = Config()
 
 # Setting the hyperparameters default value.
 # The default value of the generator's learning rate.
-Cfg.lrG = 0.1
-Cfg.lrD = 0.1
+Cfg.lrG = 2e-4
+Cfg.lrD = 2e-4
 # The default value of the latent size.
-Cfg.lt = 50
+Cfg.lt = 100
 # The default value of the image size.
-Cfg.im = 30
+Cfg.im = 28
 Cfg.imageSize = Cfg.im * Cfg.im
 # The default value of the epoches.
-Cfg.epoches = 10
+Cfg.epoches = 30
 # The default value of the batch size.
-Cfg.bs = 64
+Cfg.bs = 32
 # The default value of the random seed.
-Cfg.seed = 0
+Cfg.seed = 1
 # The default value of the GPU ID.
 Cfg.GPUID = -1
 
