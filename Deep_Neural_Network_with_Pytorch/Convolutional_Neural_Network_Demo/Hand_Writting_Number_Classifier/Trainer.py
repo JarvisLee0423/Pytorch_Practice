@@ -189,6 +189,8 @@ def trainer(trainSet, devSet):
         logging.info("Model Saved")
         # Converting the model mode.
         model.train()
+    # Saving the graph.
+    vis.save(envs = ['HandWrittingNumberClassifierModel'])
 
 # Training the model.
 if __name__ == "__main__":
