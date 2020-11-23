@@ -163,5 +163,5 @@ if __name__ == "__main__":
     target = transform(target)
     plt.figure('Target Image')
     plt.imshow(target)
-    plt.savefig(os.path.join(Cfg.dataDir, 'TargetOf' + Cfg.contentIM.split('.')[0] + '.jpg'))
+    plt.savefig(os.path.join(Cfg.dataDir, 'TargetOf' + Cfg.contentIM.split('.')[0] + '&' + Cfg.styleIM.split('.')[0] + '.jpg'))
     plt.show()
