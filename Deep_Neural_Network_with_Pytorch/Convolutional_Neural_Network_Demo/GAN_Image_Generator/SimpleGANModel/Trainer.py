@@ -156,7 +156,7 @@ def trainer(trainSet):
         # Saving the model.
         torch.save(G.train().state_dict(), Cfg.modelDir + '/SimpleGANGenerator.pt')
     # Saving the graph.
-    vis.save(envs = ['SimpleGANModel'])
+    lossViz.save(envs = ['SimpleGANModel'])
 
 # Training the model.
 if __name__ == "__main__":
