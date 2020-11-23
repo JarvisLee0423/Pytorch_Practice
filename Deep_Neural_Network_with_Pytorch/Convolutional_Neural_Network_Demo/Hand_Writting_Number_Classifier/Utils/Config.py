@@ -15,13 +15,13 @@ Cfg = Config()
 
 # Setting the hyperparameters' default value.
 # The default value for the learning rate.
-Cfg.lr = 0.1
+Cfg.lr = 3e-3
 # The default value for the batch size.
-Cfg.bs = 64
+Cfg.bs = 128
 # The default value for the epoches.
-Cfg.epoches = 10
+Cfg.epoches = 100
 # The default value for the random seed.
-Cfg.seed = 0
+Cfg.seed = 1
 # The default value for the GPU ID.
 Cfg.GPUID = -1
 
