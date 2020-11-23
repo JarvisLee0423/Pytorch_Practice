@@ -1,6 +1,6 @@
 #============================================================================================#
 #   Copyright:      JarvisLee
-#   Date:           2020/11/21
+#   Date:           2020/11/22
 #   File Name:      Config.py
 #   Description:    This file is used to set the default value for all the hyperparameters
 #                   and necessary configuration.
