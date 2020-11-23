@@ -15,19 +15,19 @@ Cfg = Config()
 
 # Setting the default values for the hyperparameters.
 # The default value of the learning rate.
-Cfg.lr = 0.1
+Cfg.lr = 3e-3
 # The default value of the momentum.
-Cfg.momentum = 0.5
+Cfg.momentum = 0.9
 # The default value of the weight decay.
-Cfg.wd = 0.1
+Cfg.wd = 5e-5
 # The default value of the content weight.
-Cfg.cw = 10
+Cfg.cw = 150
 # The default value of the style weight.
-Cfg.sw = 10
+Cfg.sw = 1000
 # The default value of the epoches.
-Cfg.epoches = 1000
+Cfg.epoches = 5000
 # The default value of the random seed.
-Cfg.seed = 0
+Cfg.seed = 1
 # The default value of the GPU ID.
 Cfg.GPUID = -1
 
