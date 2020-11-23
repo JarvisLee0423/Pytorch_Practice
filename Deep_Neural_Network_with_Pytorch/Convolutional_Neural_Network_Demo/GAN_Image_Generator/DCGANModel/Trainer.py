@@ -48,7 +48,7 @@ def trainer(trainSet):
     lossGraph = vis.line(Y = [0], X = [0], opts = dict(legend = ['GeneratorLoss', 'DiscriminatorLoss'], xlabel = 'Epoches', ylabel = 'Loss', title = 'Generator and Discriminator Losses'), name = 'GeneratorLoss')
     vis.line(Y = [0], X = [0], win = lossGraph, update = 'append', name = 'DiscriminatorLoss')
     # Setting the logging file.
-    logging.basicConfig(filename = Cfg.logDir + '/logging.txt', filemode = 'a', level = logging.INFO, format = '%(asctime)s %(levelname)s %(message)s', datefmt = '%Y-%D %H-%M-%S %p')
+    logging.basicConfig(filename = Cfg.logDir + '/logging.txt', filemode = 'a', level = logging.INFO, format = '%(asctime)s %(levelname)s %(message)s', datefmt = '%Y-%D %H:%M:%S %p')
     # Logging the configuration information.
     logging.info(f'''
         Generator Learning Rate:        {Cfg.lrG}
