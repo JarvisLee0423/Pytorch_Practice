@@ -32,7 +32,8 @@ else:
 # Creating the model directory.
 if not os.path.exists(Cfg.modelDir):
     os.mkdir(Cfg.modelDir)
-os.mkdir(Cfg.modelDir + f'/{currentTime}')
+if not os.path.exists(Cfg.modelDir + f'/{currentTime}'):
+    os.mkdir(Cfg.modelDir + f'/{currentTime}')
 # Creating the log directory.
 if not os.path.exists(Cfg.logDir):
     os.mkdir(Cfg.logDir)
@@ -240,7 +241,7 @@ if __name__ == "__main__":
                 # Sending the model into the corresponding computer device.
                 model = model.to(device)
                 # Testing the model.
-                testLoss, testAcc = evaluator(model.eval(), loss, textField, testSet)
+                testLoss, testAcc = evaluator(model.eval(), nn.BCEWithLogitsLoss(), textField, testSet)
                 # Printing the testing result.
                 print("The testing: Loss = " + str(testLoss) + " || Acc = " + str(testAcc))
                 # Getting the input sentence.
