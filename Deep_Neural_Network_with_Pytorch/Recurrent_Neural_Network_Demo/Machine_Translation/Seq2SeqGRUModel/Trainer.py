@@ -267,8 +267,8 @@ if __name__ == "__main__":
             # Checking whether there is the model or not.
             try:
                 # Creating the model.
-                encoder = Encoder(len(enItos), hiddenSize)
-                decoder = Decoder(len(cnItos), hiddenSize)
+                encoder = Encoder(len(enItos), Cfg.hs)
+                decoder = Decoder(len(cnItos), Cfg.hs)
                 # Loading the model.
                 encoder.load_state_dict(torch.load(Cfg.modelDir + f'/Encoder-{currentTime}/Seq2SeqEncoder-Epoch{Cfg.epoches}.pt'))
                 decoder.load_state_dict(torch.load(Cfg.modelDir + f'/Decoder-{currentTime}/Seq2SeqDecoder-Epoch{Cfg.epoches}.pt'))
