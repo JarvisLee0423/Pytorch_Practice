@@ -92,6 +92,8 @@ def trainer(enTrainSet, cnTrainSet, enTrainLen, cnTrainLen, enDevSet, cnDevSet, 
         Vocabulary Size:            {Cfg.vs}
         Hidden Size:                {Cfg.hs}
         Learning Rate:              {Cfg.lr}
+        Adam Beta One:              {Cfg.beta1}
+        Adam Beta Two:              {Cfg.beta2}
         Batch Size:                 {Cfg.bs}
         Epoches:                    {Cfg.epoches}
         Random Seed:                {Cfg.seed}
