@@ -1,0 +1,12 @@
+torch
+torchvision
+torchtext
+numpy
+scipy
+nltk
+jieba
+matplotlib
+tqdm
+logging
+argparse
+visdom
