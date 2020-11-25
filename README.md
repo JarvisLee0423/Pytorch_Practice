@@ -18,4 +18,19 @@
 
  Library Description:
 
- This project only required three extra libraries, one is jieba, another one is nltk and the last one is torchtext.
+ pip install -U setuptools -r requirements.txt
+ 
+ Hint: Some words split tools should be extra downloaded or setted from the internet.
+
+
+ Project Description:
+
+ All the projects in Deep folders have the Config.py file, which contains all the hyperparameters and directories settings.
+
+ Directly running the Trainer.py file, all the hyperparameters and directories would be applied as the default value.
+
+ There are two ways to changing the settings, one is directly modifying the default value in Config.py file.
+
+ Another one is giving the new value by running the instructions like below:
+
+    python .../Trainer.py -gpu [GPUID] -bs [BatchSize] - lr [LearningRate] -modelDir [Checkpoints Saving Dir] ...
