@@ -66,7 +66,7 @@ def argParse():
     parser.add_argument('-ep', '--epoches', type = int, dest = 'epoches', default = CFG.epoches, help = 'Integer => [1, Infinite)')
     parser.add_argument('-seed', '--seed', type = int, dest = 'seed', default = CFG.seed, help = 'Integer => [0, Infinite)')
     parser.add_argument('-gpu', '--GPUID', type = int, dest = 'GPUID', default = CFG.GPUID, help = 'Integer => [0, Infinite)')
-    parser.add_argument('-currentTime', '--currentTime', type = str, dest = 'currentTime', default = CFG.currentTime, help = 'Format => %Y-%m-%d-%H-%M-%S')
+    parser.add_argument('-currentTime', '--currentTime', type = str, dest = 'currentTime', default = CFG.currentTime, help = 'Format => Y-m-d-H-M-S')
     parser.add_argument('-modelDir', '--modelDir', type = str, dest = 'modelDir', default = CFG.modelDir, help = 'String')
     parser.add_argument('-logDir', '--logDir', type = str, dest = 'logDir', default = CFG.logDir, help = 'String')
     parser.add_argument('-dataDir', '--dataDir', type = str, dest = 'dataDir', default = CFG.dataDir, help = 'String')
