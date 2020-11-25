@@ -1,12 +1,11 @@
 torch
 torchvision
 torchtext
-numpy
+numpy == 1.18.2
 scipy
 nltk
 jieba
 matplotlib
 tqdm
-logging
 argparse
 visdom
