@@ -18,7 +18,7 @@
 
  Library Description:
 
- pip install -U setuptools -r requirements.txt
+ python -m pip install --user --upgrade pip --upgrade setuptools -r requirements.txt
  
  Hint: Some words split tools should be extra downloaded or setted from the internet.
 
