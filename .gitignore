@@ -20,3 +20,4 @@ Datasets/MNIST/raw/train-labels-idx1-ubyte
 *.jpg
 *.gif
 *.png
+Datasets/Middlebury/Test.zip
